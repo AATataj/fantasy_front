@@ -7,11 +7,18 @@ import './Welcome';
 import DBquery from './DBquery.js';
 import Welcome from './Welcome.js';
 import AddFeature from './AddFeature.js';
+import InProgress from './InProgress';
 import { Route, Switch } from 'react-router-dom';
 
 
   
 function App() {
+  /*
+  All this code is unnecessary now that we're using react-router-dom.  
+  But, it's important to enough to keep here as it gives an example
+  of how to pass state data between components and conditional 
+  rendering
+  */
   const [ScraperAnchor, setScraperAnchor] = React.useState(null);
   const [ModelsAnchor, setModelsAnchor] = React.useState(null);
   const [pageLoc, setPageLoc] = React.useState('welcome'); 
@@ -88,6 +95,7 @@ function App() {
           <Route path='/Welcome' component={Welcome} exact />
           <Route path='/DBQuery' component={DBquery} exact />
           <Route path='/AddFeature' component={AddFeature} exact />
+          <Route path='/InProgress' component={InProgress} exact />
         <div>
           {
             pageLoc === 'welcome' &&

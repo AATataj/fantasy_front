@@ -32,7 +32,7 @@ export default function NbaBar(props){
             >
                 <MenuIcon/>Test Models
             </IconButton>
-            <Link to = "/DBQuery" style={{ textDecoration: 'none' }}>
+        <Link to = "/DBQuery" style={{ textDecoration: 'none' }}>
             <IconButton
                 edge="start"
                 onClick = {props.handleClick}
@@ -41,8 +41,8 @@ export default function NbaBar(props){
             >
                 Database Query
             </IconButton>
-            </Link>
-            <Link to = "/AddFeature" style={{ textDecoration: 'none' }}>
+        </Link>
+        <Link to = "/AddFeature" style={{ textDecoration: 'none' }}>
             <IconButton
                 edge="start"
                 onClick = {props.handleClick}
@@ -50,7 +50,7 @@ export default function NbaBar(props){
             >
                 Add Feature
             </IconButton>
-            </Link>
+        </Link>
             <Menu 
                 id = "modelsMenu"
                 keepMounted
@@ -58,9 +58,15 @@ export default function NbaBar(props){
                 open={Boolean(props.ModelsAnchor)}
                 onClose={props.handleClose}        
             >
-                <MenuItem id="linReg" onClick={props.handleClick}>Statistical Output</MenuItem>
-                <MenuItem id="sentiment" onClick={props.handleClick}>Availability</MenuItem>
-                <MenuItem id="reinforcement" onClick={props.handleClick}>AI GM</MenuItem>
+                <Link to = "/InProgress" style={{ textDecoration: 'none' }}>
+                    <MenuItem id="linReg" onClick={props.handleClick}>Statistical Output</MenuItem>
+                </Link>
+                <Link to = "/InProgress" style={{ textDecoration: 'none' }}>
+                    <MenuItem id="sentiment" onClick={props.handleClick}>Availability</MenuItem>
+                </Link>
+                <Link to = "/InProgress" style={{ textDecoration: 'none' }}>
+                    <MenuItem id="reinforcement" onClick={props.handleClick}>AI GM</MenuItem>
+                </Link>
             </Menu>
             <Menu 
                 id = "scrapersMenu"
@@ -69,10 +75,18 @@ export default function NbaBar(props){
                 open={Boolean(props.ScraperAnchor)} 
                 onClose={props.handleClose}        
             >
-                <MenuItem id="scrapeAll" onClick={props.handleClick}>Scrape All</MenuItem>
-                <MenuItem id="scrapeRoto" onClick={props.handleClick}>Rotoworld</MenuItem>
-                <MenuItem id="scrapeBox" onClick={props.handleClick}>Boxscores</MenuItem>
-                <MenuItem id="scrapePlay" onClick={props.handleClick}>Play-by-Play</MenuItem>
+                <Link to = "/InProgress" style={{ textDecoration: 'none' }}>
+                    <MenuItem id="scrapeAll" onClick={props.handleClick}>Scrape All</MenuItem>
+                </Link>
+                <Link to = "/InProgress" style={{ textDecoration: 'none' }}>
+                    <MenuItem id="scrapeRoto" onClick={props.handleClick}>Rotoworld</MenuItem>
+                </Link>
+                <Link to = "/InProgress" style={{ textDecoration: 'none' }}>
+                    <MenuItem id="scrapeBox" onClick={props.handleClick}>Boxscores</MenuItem>
+                </Link>
+                <Link to = "/InProgress" style={{ textDecoration: 'none' }}>
+                    <MenuItem id="scrapePlay" onClick={props.handleClick}>Play-by-Play</MenuItem>
+                </Link>
             </Menu>
             
         </Toolbar>
