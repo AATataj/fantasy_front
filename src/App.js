@@ -7,6 +7,8 @@ import './Welcome';
 import DBquery from './DBquery.js';
 import Welcome from './Welcome.js';
 import AddFeature from './AddFeature.js';
+import { Route, Switch } from 'react-router-dom';
+
 
   
 function App() {
@@ -82,6 +84,10 @@ function App() {
     <div className="App">
         <NavBar handleClick={handleClick} handleClose={handleClose} 
           ModelsAnchor={ModelsAnchor} ScraperAnchor={ScraperAnchor} />
+        <Switch>
+          <Route path='/Welcome' component={Welcome} exact />
+          <Route path='/DBQuery' component={DBquery} exact />
+          <Route path='/AddFeature' component={AddFeature} exact />
         <div>
           {
             pageLoc === 'welcome' &&
@@ -100,6 +106,7 @@ function App() {
             <AddFeature />
           } 
         </div>
+        </Switch>
     </div>
   );
 }

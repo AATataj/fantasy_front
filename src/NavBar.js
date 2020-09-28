@@ -1,4 +1,4 @@
-import React/*, { useEffect } */ from 'react';
+import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import '@material-ui/core/MenuItem';
@@ -6,6 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import { Link } from 'react-router-dom';
 
 export default function NbaBar(props){ 
     return(
@@ -31,6 +32,7 @@ export default function NbaBar(props){
             >
                 <MenuIcon/>Test Models
             </IconButton>
+            <Link to = "/DBQuery" style={{ textDecoration: 'none' }}>
             <IconButton
                 edge="start"
                 onClick = {props.handleClick}
@@ -39,6 +41,8 @@ export default function NbaBar(props){
             >
                 Database Query
             </IconButton>
+            </Link>
+            <Link to = "/AddFeature" style={{ textDecoration: 'none' }}>
             <IconButton
                 edge="start"
                 onClick = {props.handleClick}
@@ -46,6 +50,7 @@ export default function NbaBar(props){
             >
                 Add Feature
             </IconButton>
+            </Link>
             <Menu 
                 id = "modelsMenu"
                 keepMounted
