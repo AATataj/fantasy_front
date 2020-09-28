@@ -4,9 +4,10 @@ import './NavBar.js';
 import NavBar from './NavBar';
 import './DBquery.js';
 import './Welcome';
-import { Route, Switch } from 'react-router-dom';
 import DBquery from './DBquery.js';
 import Welcome from './Welcome.js';
+import AddFeature from './AddFeature.js';
+
   
 function App() {
   const [ScraperAnchor, setScraperAnchor] = React.useState(null);
@@ -81,10 +82,24 @@ function App() {
     <div className="App">
         <NavBar handleClick={handleClick} handleClose={handleClose} 
           ModelsAnchor={ModelsAnchor} ScraperAnchor={ScraperAnchor} />
-        <Switch> 
-          <Route path ='/DBquery' component={DBquery} />
-          <Route path ='/Welcome' component={Welcome} />
-        </Switch>
+        <div>
+          {
+            pageLoc === 'welcome' &&
+            <Welcome />
+          } 
+        </div>
+        <div>
+          {
+            pageLoc === 'dbQuery' &&
+            <DBquery />
+          } 
+        </div>
+        <div>
+          {
+            pageLoc === 'addFeature' &&
+            <AddFeature />
+          } 
+        </div>
     </div>
   );
 }
