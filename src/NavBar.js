@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React/*, { useEffect } */ from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import '@material-ui/core/MenuItem';
@@ -7,82 +7,14 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
-export default function NbaBar(props){
-    const [ScraperAnchor, setScraperAnchor] = React.useState(null);
-    const [ModelsAnchor, setModelsAnchor] = React.useState(null);
-    const [pageLoc, setPageLoc] = React.useState('welcome'); 
-    // use effect runs after a state/hook variable is changed and 
-    // doesn't wait for a render() call.  
-    // the last [pageLoc] parameter is optimizing the useEffect() call
-    // by only running it when pageLoc is updated
-    // without that, the useEffect() will be called when any part of the 
-    // component is updated
-    useEffect(() =>{
-        console.log("use effect call : " + pageLoc);
-    },[pageLoc]);
-    const handleClick= (event) => {
-        const eventID = event.currentTarget.id;
-        if (eventID === "menuScraper"){
-            setScraperAnchor(event.currentTarget);
-        }
-        else if (eventID === "dbQuery"){
-            setPageLoc(eventID);
-            console.log("pull up db query component");
-        }
-        else if (eventID === "addFeature"){
-            setPageLoc(eventID);
-            console.log("pull up add feature component");
-        }
-        else if (eventID === "scrapeAll"){
-            setPageLoc(eventID);
-            console.log("pull up scraping page with process of all scrapers");
-            handleClose();
-        }
-        else if (eventID === "scrapeRoto"){
-            setPageLoc(eventID);
-            console.log("pull up scraping page with process of rotoworld ");
-            handleClose();
-        }
-        else if (eventID === "scrapeBox"){
-            setPageLoc(eventID);
-            console.log("pull up scraping page with process of boxscores");
-            handleClose();
-        }
-        else if (eventID === "scrapePlay"){
-            setPageLoc(eventID);
-            console.log("pull up scraping page with process of play-by-plays");
-            handleClose();
-        }
-        else if (eventID === "menuModels"){
-            setModelsAnchor(event.currentTarget);
-        }
-        else if (eventID === "linReg"){
-            setPageLoc(eventID);
-            console.log("bring up linear regression testing page");
-            handleClose();
-        }
-        else if (eventID === "sentiment"){
-            setPageLoc(eventID);
-            console.log("bring up sentiment analysis testing page");
-            handleClose();
-        }
-        else if (eventID === "reinforcement"){
-            setPageLoc(eventID);
-            console.log("bring up reinforcement learning testing page");
-            handleClose();
-        } 
-    };    
-    const handleClose = () => {
-        setScraperAnchor(null);
-        setModelsAnchor(null);
-    }; 
+export default function NbaBar(props){ 
     return(
     <React.Fragment>
     <AppBar position="fixed">
         <Toolbar>
             <IconButton 
                 edge="start" 
-                onClick = {handleClick}
+                onClick = {props.handleClick}
                 id = "menuScraper"
                 aria-controls="scrapersMenu"
                 aria-haspopup="true" 
@@ -92,7 +24,7 @@ export default function NbaBar(props){
             </IconButton>
             <IconButton
                 edge="start" 
-                onClick = {handleClick}
+                onClick = {props.handleClick}
                 id = "menuModels"
                 aria-controls="functionsMenu"
                 aria-haspopup="true"
@@ -101,7 +33,7 @@ export default function NbaBar(props){
             </IconButton>
             <IconButton
                 edge="start"
-                onClick = {handleClick}
+                onClick = {props.handleClick}
                 id = "dbQuery"
                 
             >
@@ -109,7 +41,7 @@ export default function NbaBar(props){
             </IconButton>
             <IconButton
                 edge="start"
-                onClick = {handleClick}
+                onClick = {props.handleClick}
                 id = "addFeature"
             >
                 Add Feature
@@ -117,25 +49,25 @@ export default function NbaBar(props){
             <Menu 
                 id = "modelsMenu"
                 keepMounted
-                anchorEl={ModelsAnchor}
-                open={Boolean(ModelsAnchor)}
-                onClose={handleClose}        
+                anchorEl={props.ModelsAnchor}
+                open={Boolean(props.ModelsAnchor)}
+                onClose={props.handleClose}        
             >
-                <MenuItem id="linReg" onClick={handleClick}>Statistical Output</MenuItem>
-                <MenuItem id="sentiment" onClick={handleClick}>Availability</MenuItem>
-                <MenuItem id="reinforcement" onClick={handleClick}>AI GM</MenuItem>
+                <MenuItem id="linReg" onClick={props.handleClick}>Statistical Output</MenuItem>
+                <MenuItem id="sentiment" onClick={props.handleClick}>Availability</MenuItem>
+                <MenuItem id="reinforcement" onClick={props.handleClick}>AI GM</MenuItem>
             </Menu>
             <Menu 
                 id = "scrapersMenu"
                 keepMounted
-                anchorEl={ScraperAnchor}
-                open={Boolean(ScraperAnchor)}
-                onClose={handleClose}        
+                anchorEl={props.ScraperAnchor}
+                open={Boolean(props.ScraperAnchor)} 
+                onClose={props.handleClose}        
             >
-                <MenuItem id="scrapeAll" onClick={handleClick}>Scrape All</MenuItem>
-                <MenuItem id="scrapeRoto" onClick={handleClick}>Rotoworld</MenuItem>
-                <MenuItem id="scrapeBox" onClick={handleClick}>Boxscores</MenuItem>
-                <MenuItem id="scrapePlay" onClick={handleClick}>Play-by-Play</MenuItem>
+                <MenuItem id="scrapeAll" onClick={props.handleClick}>Scrape All</MenuItem>
+                <MenuItem id="scrapeRoto" onClick={props.handleClick}>Rotoworld</MenuItem>
+                <MenuItem id="scrapeBox" onClick={props.handleClick}>Boxscores</MenuItem>
+                <MenuItem id="scrapePlay" onClick={props.handleClick}>Play-by-Play</MenuItem>
             </Menu>
             
         </Toolbar>
