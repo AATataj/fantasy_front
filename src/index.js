@@ -4,11 +4,14 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import NavBar from './NavBar';
+import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
   <React.StrictMode>
-    <NavBar />
-    <App />
+      <BrowserRouter>
+        <NavBar />
+        <App />
+      </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );
