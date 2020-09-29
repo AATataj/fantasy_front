@@ -22,14 +22,15 @@ export default function NbaBar(props){
     return(
     <React.Fragment>
     <div className={classes.root}>
-        <AppBar position="fixed">
-            <Toolbar>
+        <AppBar position="fixed" className={classes.root}>
+            <Toolbar className={classes.root}>
                 <IconButton 
                     edge="start" 
                     onClick = {props.handleClick}
                     id = "menuScraper"
                     aria-controls="scrapersMenu"
-                    aria-haspopup="true" 
+                    aria-haspopup="true"
+                    className={classes.root} 
                 >
                     <MenuIcon/>  
                     Data Scraper 
@@ -40,6 +41,7 @@ export default function NbaBar(props){
                     id = "menuModels"
                     aria-controls="functionsMenu"
                     aria-haspopup="true"
+                    className={classes.root}
                 >
                     <MenuIcon/>Test Models
                 </IconButton>
@@ -48,6 +50,7 @@ export default function NbaBar(props){
                     edge="start"
                     onClick = {props.handleClick}
                     id = "dbQuery"
+                    className={classes.root}
                     
                 >
                     Database Query
@@ -58,12 +61,13 @@ export default function NbaBar(props){
                     edge="start"
                     onClick = {props.handleClick}
                     id = "addFeature"
+                    className={classes.root}
                 >
                     Add Feature
                 </IconButton>
             </Link>
             <Link to = "/Welcome" style={{ textDecoration: 'none' }}>
-                <HomeIcon></HomeIcon>
+                <HomeIcon className={classes.root}></HomeIcon>
             </Link>
                 <Menu 
                     id = "modelsMenu"
