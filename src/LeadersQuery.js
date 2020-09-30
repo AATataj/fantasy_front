@@ -2,15 +2,12 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 
 
-function PlayerQuery(){
+function LeadersQuery(){
     return ( 
         <React.Fragment>
             <br />
-            Individual Player Stats
+            League Leaders Stats
             <br/><br/><br/>
-            <TextField id="playerName" type="text" 
-            label= " Player Name "  
-            />
             <TextField id="startDate" 
             type="date" 
             helperText="default 1st career game"
@@ -23,10 +20,7 @@ function PlayerQuery(){
             label="End Date"
             InputLabelProps={{ shrink: true }} 
             />  
-            <TextField id="playerID" type="text" 
-            label= " Player ID "  
-            />
         </React.Fragment>
     ); 
 } 
-export default PlayerQuery
+export default LeadersQuery
