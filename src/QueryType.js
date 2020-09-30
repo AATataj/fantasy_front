@@ -20,7 +20,7 @@ const options = [
   'League Leaders Query',
 ];
 
-function QueryType() {
+function QueryType(props) {
 
  const classes = useStyles();
  const [anchorEl, setAnchorEl] = React.useState(null);
@@ -32,6 +32,8 @@ function QueryType() {
 
  const handleMenuItemClick = (event, index) => {
    setSelectedIndex(index);
+   console.log(options[index]);
+   props.qType(options[index]);
    setAnchorEl(null);
  };
 
@@ -64,7 +66,6 @@ function QueryType() {
           {options.map((option, index) => (
             <MenuItem
               key={option}
-              //disabled={index === 0}
               selected={index === selectedIndex}
               onClick={(event) => handleMenuItemClick(event, index)}
             >
