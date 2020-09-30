@@ -13,6 +13,16 @@ function PlayerQuery(){
         requestData.endDate = document.getElementById('endDate').value;
         requestData.playerID = parseInt(document.getElementById('playerID').value);
         console.log(JSON.stringify(requestData));
+        const requestOptions = {
+            method : 'POST',
+            headers : {'Content-Type': 'application/json'},
+            body : JSON.stringify(requestData)
+        };
+        // this will likely change as it's going to handle the response as well.
+        // but for now, I've verified the body of the post request in postman
+        fetch('https://d385140c-4209-4264-9649-03bca01b2bd0.mock.pstmn.io/post'/*'http://localhost:8000'*/, requestOptions)
+            .then(response => response.json())
+            .then(data => console.log('do something'));
 
 
     };
