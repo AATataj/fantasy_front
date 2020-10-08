@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect}from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -191,7 +191,7 @@ const columns = [
       },
   ];
   
-  const data = [
+  const datastuff = [
     {
       key: '1',
       name: 'John Brown',
@@ -226,6 +226,22 @@ const columns = [
   ];
 
 function PlayerQuery(){
+    const [ isLoading, setIsLoading ] = useState(false)
+    const [ data, setData ] = useState([])
+    const [requestData, setRequestData] = useState(null)
+
+    useEffect(() => {
+        (async ()=>{
+            console.log("we get here");
+            setIsLoading(true);
+            const fetched = await fetch('http://127.0.0.1:8000/dbQuery/', requestData);
+            const response = await fetched.json();
+            setData(response);
+            setIsLoading(false);
+        })()
+        console.log(data);
+    }
+    )
     const submit = (event) => {
         // add http get request stuff here.
         var requestData = {};
@@ -239,13 +255,14 @@ function PlayerQuery(){
                     },
             body : JSON.stringify(requestData)
         };
+
         console.log(JSON.stringify(requestOptions));
         // this will likely change as it's going to handle the response as well.
         // but for now, I've verified the body of the post request in postman
-        fetch('http://127.0.0.1:8000/dbQuery/', requestOptions)
-            .then(response => console.log(response.json()))
-            .then(data => console.log("this is filler"));
-
+        // fetch('http://127.0.0.1:8000/dbQuery/', requestOptions)
+        //     .then(response => setData(response.json()));
+            //.then(data => console.log("this is filler"));
+        setRequestData(requestOptions);
 
     };
     return ( 
@@ -285,7 +302,7 @@ function PlayerQuery(){
                 </Grid>
             </Grid>
         <Table columns={columns} 
-               dataSource={data} 
+               dataSource={datastuff} 
                pagination={{ defaultPageSize: 20, showSizeChanger: true, pageSizeOptions: ['25', '50', '100']}}        
                size='small'
         />
