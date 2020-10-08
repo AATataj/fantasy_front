@@ -14,7 +14,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 
-
 function createData(name, date, team, opp, res, min, fgm, fga, fgPer, fgm2, fga2, fg2Per, 
                     fgm3, fga3, fg3Per, ftm, fta, ftPer, orb, drb, trb, ast, stl, blk, tov, 
                     pf, pts ) {
@@ -23,19 +22,19 @@ function createData(name, date, team, opp, res, min, fgm, fga, fgPer, fgm2, fga2
 }
 
 const rows = [
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Donut', 452, 25.0, 51, 4.9),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Honeycomb', 408, 3.2, 87, 6.5),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Jelly Bean', 375, 0.0, 94, 0.0),
-  createData('KitKat', 518, 26.0, 65, 7.0),
-  createData('Lollipop', 392, 0.2, 98, 0.0),
-  createData('Marshmallow', 318, 0, 81, 2.0),
-  createData('Nougat', 360, 19.0, 9, 37.0),
-  createData('Oreo', 437, 18.0, 63, 4.0),
+  createData('Cupcake', '2001/01/01', 'TOR', 'ATL','W', 3.7, 6, 4.3, 5,4,3,2,1,0,1,2,3,4,5,5,4,3,2,1),
+  createData('Donut', '2001/01/02', 'TOR','BOS', 'W', 5,4,3,2,1,0,1,2,3,4,5,5,4,3,2,1, 1,2,3),
+  createData('Eclair', '2001/01/03', 'TOR', 'NYK', 'L',4,3,2,1,0,1,2,3,4,5,5,4,3,2,1,0,1,2,3),
+  createData('Frozen yoghurt', '2001/01/04', 'TOR', 'NJN', 'L', 5,4,3,2,1,0,1,2,3,4,5,5,4,3,2,1, 1,2,3),
+  createData('Gingerbread', '2001/01/05', 'TOR', 'ORL', 'W', 5,4,3,2,1,0,1,2,3,4,5,5,4,3,2,1, 1,2,3),
+  createData('Honeycomb', '2001/01/06','TOR', 'PHX', 'W', 5,4,3,2,1,0,1,2,3,4,5,5,4,3,2,1, 1,2,3),
+  createData('Ice cream sandwich', '2002/01/07', 'TOR', 'CHI', 'L', 5,4,3,2,1,0,1,2,3,4,5,5,4,3,2,1, 1,2,3),
+  createData('Jelly Bean', '2001/01/08','TOR', 'MIA', 'L', 5,4,3,2,1,0,1,2,3,4,5,5,4,3,2,1, 1,2,3),
+  createData('KitKat', '2001/01/09','TOR', 'CHA', 'W', 5,4,3,2,1,0,1,2,3,4,5,5,4,3,2,1, 1,2,3),
+  createData('Lollipop', '2001/01/10','TOR', 'IND', 'W', 5,4,3,2,1,0,1,2,3,4,5,5,4,3,2,1, 1,2,3),
+  createData('Marshmallow', '2001/02/11','TOR', 'PHI', 'W', 5,4,3,2,1,0,1,2,3,4,5,5,4,3,2,1, 1,2,3),
+  createData('Nougat', '2001/01/12','TOR', 'MIL', 'W', 5,4,3,2,1,0,1,2,3,4,5,5,4,3,2,1, 1,2,3),
+  createData('Oreo', '2001/01/13','TOR', 'WAS', 'W', 5,4,3,2,1,0,1,2,3,4,5,5,4,3,2,1, 1,2,3),
 ];
 
 function descendingComparator(a, b, orderBy) {
@@ -65,30 +64,30 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-  { id: 'name', numeric: false, disablePadding: true, label: 'Name' },
-  { id: 'date', numeric: false, disablePadding: false, label: 'Date' },
-  { id: 'team', numeric: false, disablePadding: false, label: 'Team' },
-  { id: 'opp', numeric: false, disablePadding: false, label: 'Opp' },
-  { id: 'res', numeric: false, disablePadding: false, label: 'Res' },
-  { id: 'min', numeric: true, disablePadding: false, label: 'Min' },
-  { id: '2fgm', numeric: true, disablePadding: false, label: '2FGM' },
-  { id: '2fga', numeric: true, disablePadding: false, label: '2FGA' },
-  { id: '2fg%', numeric: true, disablePadding: false, label: '2FG%' },
-  { id: '3fgm', numeric: true, disablePadding: false, label: '3FGM' },
-  { id: '3fga', numeric: true, disablePadding: false, label: '3FGA' },
-  { id: '3fg%', numeric: true, disablePadding: false, label: '3FG%' },
-  { id: 'ftm', numeric: true, disablePadding: false, label: 'FTM' },
-  { id: 'fta', numeric: true, disablePadding: false, label: 'FTA' },
-  { id: 'ft%', numeric: true, disablePadding: false, label: 'FT%' },
-  { id: 'orb', numeric: true, disablePadding: false, label: 'ORB' },
-  { id: 'drb', numeric: true, disablePadding: false, label: 'DRB' },
-  { id: 'trb', numeric: true, disablePadding: false, label: 'TRB' },
-  { id: 'ast', numeric: true, disablePadding: false, label: 'AST' },
-  { id: 'stl', numeric: true, disablePadding: false, label: 'STL' },
-  { id: 'blk', numeric: true, disablePadding: false, label: 'BLK' },
-  { id: 'tov', numeric: true, disablePadding: false, label: 'TOV' },
-  { id: 'pf', numeric: true, disablePadding: false, label: 'PF' },
-  { id: 'pts', numeric: true, disablePadding: false, label: 'PTS' },
+  { id: 'name', numeric: false, disablePadding: true, label: 'Name'},
+  { id: 'date', numeric: false, disablePadding: false, label: 'Date'},
+  { id: 'team', numeric: false, disablePadding: false, label: 'Team'},
+  { id: 'opp', numeric: false, disablePadding: false, label: 'Opp'},
+  { id: 'res', numeric: false, disablePadding: false, label: 'Res'},
+  { id: 'min', numeric: true, disablePadding: false, label: 'Min'},
+  { id: '2fgm', numeric: true, disablePadding: false, label: '2FGM'},
+  { id: '2fga', numeric: true, disablePadding: false, label: '2FGA'},
+  { id: '2fg%', numeric: true, disablePadding: false, label: '2FG%'},
+  { id: '3fgm', numeric: true, disablePadding: false, label: '3FGM'},
+  { id: '3fga', numeric: true, disablePadding: false, label: '3FGA'},
+  { id: '3fg%', numeric: true, disablePadding: false, label: '3FG%'},
+  { id: 'ftm', numeric: true, disablePadding: false, label: 'FTM'},
+  { id: 'fta', numeric: true, disablePadding: false, label: 'FTA'},
+  { id: 'ft%', numeric: true, disablePadding: false, label: 'FT%'},
+  { id: 'orb', numeric: true, disablePadding: false, label: 'ORB'},
+  { id: 'drb', numeric: true, disablePadding: false, label: 'DRB'},
+  { id: 'trb', numeric: true, disablePadding: false, label: 'TRB'},
+  { id: 'ast', numeric: true, disablePadding: false, label: 'AST'},
+  { id: 'stl', numeric: true, disablePadding: false, label: 'STL'},
+  { id: 'blk', numeric: true, disablePadding: false, label: 'BLK'},
+  { id: 'tov', numeric: true, disablePadding: false, label: 'TOV'},
+  { id: 'pf', numeric: true, disablePadding: false, label: 'PF'},
+  { id: 'pts', numeric: true, disablePadding: false, label: 'PTS'},
   
 ];
 
@@ -186,6 +185,9 @@ const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 750,
   },
+  cellWidth: {
+    'width':'500px',
+  },
   visuallyHidden: {
     border: 0,
     clip: 'rect(0 0 0 0)',
@@ -206,6 +208,7 @@ export default function EnhancedTable() {
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(25);
+
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -254,9 +257,9 @@ export default function EnhancedTable() {
         <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
           <Table
-            className={classes.table}
+            //className={classes.table}
             aria-labelledby="tableTitle"
-            size= 'small' //{dense ? 'small' : 'medium'}
+            size= 'small'
             aria-label="enhanced table"
           >
             <EnhancedTableHead
@@ -271,7 +274,6 @@ export default function EnhancedTable() {
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.name);
-                  const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <TableRow
@@ -283,13 +285,34 @@ export default function EnhancedTable() {
                       key={row.name}
                       selected={isItemSelected}
                     >
-                      <TableCell component="th" id={labelId} scope="row" padding="none">
+                      <TableCell /*component="th"*/ scope="row" padding="none">
                         {row.name}
                       </TableCell>
-                      <TableCell align="right">{row.calories}</TableCell>
-                      <TableCell align="right">{row.fat}</TableCell>
-                      <TableCell align="right">{row.carbs}</TableCell>
-                      <TableCell align="right">{row.protein}</TableCell>
+                      <TableCell align="right">{row.date}</TableCell>
+                      <TableCell align="right" >{row.team}</TableCell>
+                      <TableCell align="right" >{row.opp}</TableCell>
+                      <TableCell align="right" >{row.res}</TableCell>
+                      <TableCell align="right" >{row.min}</TableCell>
+                      <TableCell align="right" >{row.fgm}</TableCell>
+                      <TableCell align="right" >{row.fga}</TableCell>
+                      <TableCell align="right" >{row.fgPer}</TableCell>
+                      <TableCell align="right" >{row.fgm2}</TableCell>
+                      <TableCell align="right" >{row.fga2}</TableCell>
+                      <TableCell align="right" >{row.fg2Per}</TableCell>
+                      <TableCell align="right" >{row.fgm3}</TableCell>
+                      <TableCell align="right" >{row.fga3}</TableCell>
+                      <TableCell align="right" >{row.fg3Per}</TableCell>
+                      <TableCell align="right" >{row.ftm}</TableCell>
+                      <TableCell align="right" >{row.fta}</TableCell>
+                      <TableCell align="right" >{row.ftPer}</TableCell>
+                      <TableCell align="right" >{row.orb}</TableCell>
+                      <TableCell align="right" >{row.drb}</TableCell>
+                      <TableCell align="right" >{row.trb}</TableCell>
+                      <TableCell align="right" >{row.ast}</TableCell>
+                      <TableCell align="right" >{row.stl}</TableCell>
+                      <TableCell align="right" >{row.blk}</TableCell>
+                      <TableCell align="right" >{row.pf}</TableCell>
+                      <TableCell align="right" >{row.pts}</TableCell>
                     </TableRow>
                   );
                 })}
