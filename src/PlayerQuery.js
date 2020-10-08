@@ -240,8 +240,7 @@ function PlayerQuery(){
             setIsLoading(false);
         })()
         console.log(data);
-    }
-    )
+    },[data, requestData]);
     const submit = (event) => {
         // add http get request stuff here.
         var requestData = {};
