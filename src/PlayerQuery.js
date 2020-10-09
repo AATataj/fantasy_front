@@ -2,7 +2,6 @@ import React, {useState, useEffect}from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-//import EnhancedTable from './EnhancedTable.js';
 import 'antd/dist/antd.css';
 import './index.css';
 import { Table } from 'antd';
@@ -11,13 +10,15 @@ const columns = [
     {
       title: 'Name',
       dataIndex: 'name',
+      key:'name',
       width: '7%'
     },
     {
       title: 'Date',
       dataIndex: 'date',
+      key:'date',
       sorter: {
-        compare: (a, b) => a.chinese - b.chinese,
+        compare: (a, b) => Date.parse(a.date) - Date.parse(b.date),
         multiple: 3,
       },
       width:'5%'
@@ -25,32 +26,37 @@ const columns = [
     {
       title: 'Team',
       dataIndex: 'team',
+      key:'team',
       width:'2%'
     },
     {
       title: 'Opp',
-      dataIndex: 'opp',
+      dataIndex: 'opponent',
+      key:'opponent',
       width:'2%'
     },
     {
         title: 'Res',
-        dataIndex: 'res',
+        dataIndex: 'result',
+        key:'result',
         width:'2%'
       },
       {
         title: 'Min',
-        dataIndex: 'min',
+        dataIndex: 'minutes',
+        key:'minutes',
         sorter: {
-          compare: (a, b) => a.english - b.english,
+          compare: (a, b) => a.minutes - b.minutes,
           multiple: 1,
         },
         width:'2%'
       },
       {
         title: '3FGM',
-        dataIndex: 'fgm3',
+        dataIndex: 'number_3fgm',
+        key:'number_3fgm',
         sorter: {
-          compare: (a, b) => a.english - b.english,
+          compare: (a, b) => a.number_3fgm - b.number_3fgm,
           multiple: 1,
         },
         width:'2%'
@@ -58,8 +64,9 @@ const columns = [
       {
         title: 'FGM',
         dataIndex: 'fgm',
+        key:'fgm',
         sorter: {
-          compare: (a, b) => a.english - b.english,
+          compare: (a, b) => a.fgm - b.fgm,
           multiple: 1,
         },
         width:'2%'
@@ -67,44 +74,49 @@ const columns = [
       {
         title: 'FGA',
         dataIndex: 'fga',
+        key:'fga',
         sorter: {
-          compare: (a, b) => a.english - b.english,
+          compare: (a, b) => a.fga - b.fga,
           multiple: 1,
         },
         width:'2%'
       },
       {
         title: 'FG%',
-        dataIndex: 'fgPer',
+        dataIndex: 'fgper',
+        key:'fgper',
         sorter: {
-          compare: (a, b) => a.english - b.english,
+          compare: (a, b) => a.fgper - b.fgper,
           multiple: 1,
         },
         width:'2%'
       },
       {
         title: 'FTM',
-        dataIndex: 'fgm',
+        dataIndex: 'ftm',
+        key:'ftm',
         sorter: {
-          compare: (a, b) => a.english - b.english,
+          compare: (a, b) => a.ftm - b.ftm,
           multiple: 1,
         },
         width:'2%'
       },
       {
         title: 'FTA',
-        dataIndex: 'fga',
+        dataIndex: 'fta',
+        key:'fta',
         sorter: {
-          compare: (a, b) => a.english - b.english,
+          compare: (a, b) => a.fta - b.fta,
           multiple: 1,
         },
         width:'2%'
       },
       {
         title: 'FT%',
-        dataIndex: 'fgPer',
+        dataIndex: 'ftper',
+        key:'ftper',
         sorter: {
-          compare: (a, b) => a.english - b.english,
+          compare: (a, b) => a.ftper - b.ftper,
           multiple: 1,
         },
         width:'2%'
@@ -112,25 +124,28 @@ const columns = [
       {
         title: 'ORB',
         dataIndex: 'orb',
+        key:'orb',
         sorter: {
-          compare: (a, b) => a.english - b.english,
+          compare: (a, b) => a.orb - b.orb,
           multiple: 1,
         },
         width:'2%'
       },
       {
         title: 'DRB',
-        dataIndex: 'orb',
+        dataIndex: 'drb',
+        key:'drb',
         sorter: {
-          compare: (a, b) => a.english - b.english,
+          compare: (a, b) => a.drb - b.drb,
           multiple: 1,
         },
         width:'2%'
       },{
         title: 'TRB',
-        dataIndex: 'orb',
+        dataIndex: 'trb',
+        key:'trb',
         sorter: {
-          compare: (a, b) => a.english - b.english,
+          compare: (a, b) => a.trb - b.trb,
           multiple: 1,
         },
         width:'2%'
@@ -138,8 +153,9 @@ const columns = [
       {
         title: 'AST',
         dataIndex: 'ast',
+        key:'ast',
         sorter: {
-          compare: (a, b) => a.english - b.english,
+          compare: (a, b) => a.ast - b.ast,
           multiple: 1,
         },
         width:'2%'
@@ -147,8 +163,9 @@ const columns = [
       {
         title: 'STL',
         dataIndex: 'stl',
+        key:'stl',
         sorter: {
-          compare: (a, b) => a.english - b.english,
+          compare: (a, b) => a.stl - b.stl,
           multiple: 1,
         },
         width:'2%'
@@ -156,8 +173,9 @@ const columns = [
       {
         title: 'BLK',
         dataIndex: 'blk',
+        key:'blk',
         sorter: {
-          compare: (a, b) => a.english - b.english,
+          compare: (a, b) => a.blk - b.blk,
           multiple: 1,
         },
         width:'2%'
@@ -165,8 +183,9 @@ const columns = [
       {
         title: 'TOV',
         dataIndex: 'tov',
+        key:'tov',
         sorter: {
-          compare: (a, b) => a.english - b.english,
+          compare: (a, b) => a.tov - b.tov,
           multiple: 1,
         },
         width:'2%'
@@ -174,55 +193,23 @@ const columns = [
       {
         title: 'PF',
         dataIndex: 'pf',
+        key:'pf',
         sorter: {
-          compare: (a, b) => a.english - b.english,
+          compare: (a, b) => a.pf - b.pf,
           multiple: 1,
         },
         width:'2%'
       },
       {
         title: 'PTS',
-        dataIndex: 'pst',
+        dataIndex: 'pts',
+        key:'pts',
         sorter: {
-          compare: (a, b) => a.english - b.english,
+          compare: (a, b) => a.pts - b.pts,
           multiple: 1,
         },
         width:'2%'
       },
-  ];
-  
-  const datastuff = [
-    {
-      key: '1',
-      name: 'John Brown',
-      team: 'TOR',
-      opp: 'CHA',
-      res: 'W',
-      min: 98,
-      pts: 60,
-      pf: 70,
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      chinese: 98,
-      math: 66,
-      english: 89,
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      chinese: 98,
-      math: 90,
-      english: 70,
-    },
-    {
-      key: '4',
-      name: 'Jim Red',
-      chinese: 88,
-      math: 99,
-      english: 89,
-    },
   ];
 
 function PlayerQuery(){
@@ -232,17 +219,21 @@ function PlayerQuery(){
 
     useEffect(() => {
         (async ()=>{
-            console.log("we get here");
             setIsLoading(true);
             if (requestData != null){
                 const fetched = await fetch('http://127.0.0.1:8000/dbQuery/', requestData);
                 const response = await fetched.json();
-                setData(response);
+                const fieldss = JSON.parse(response).map(function(item, i){
+                    item.fields.key = i;
+                    return item.fields;
+                })
+                console.log(fieldss);
+                //console.log("json parse" +  JSON.parse(response));
+                setData(fieldss);
             }
             setIsLoading(false);
         })()
-        console.log(data);
-    }, [data, requestData]);
+    }, [requestData]);
     const submit = (event) => {
         // add http get request stuff here.
         var requestData = {};
@@ -303,7 +294,7 @@ function PlayerQuery(){
                 </Grid>
             </Grid>
         <Table columns={columns} 
-               dataSource={datastuff} 
+               dataSource={data} 
                pagination={{ defaultPageSize: 20, showSizeChanger: true, pageSizeOptions: ['25', '50', '100']}}        
                size='small'
         />
