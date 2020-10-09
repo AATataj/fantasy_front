@@ -227,20 +227,22 @@ const columns = [
 
 function PlayerQuery(){
     const [ isLoading, setIsLoading ] = useState(false)
-    const [ data, setData ] = useState([])
+    const [ data, setData ] = useState(null)
     const [requestData, setRequestData] = useState(null)
 
     useEffect(() => {
         (async ()=>{
             console.log("we get here");
             setIsLoading(true);
-            const fetched = await fetch('http://127.0.0.1:8000/dbQuery/', requestData);
-            const response = await fetched.json();
-            setData(response);
+            if (requestData != null){
+                const fetched = await fetch('http://127.0.0.1:8000/dbQuery/', requestData);
+                const response = await fetched.json();
+                setData(response);
+            }
             setIsLoading(false);
         })()
         console.log(data);
-    },[data, requestData]);
+    }, [data, requestData]);
     const submit = (event) => {
         // add http get request stuff here.
         var requestData = {};
