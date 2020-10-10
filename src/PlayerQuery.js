@@ -213,9 +213,11 @@ const columns = [
   ];
 
 function PlayerQuery(){
-    const [ isLoading, setIsLoading ] = useState(false)
-    const [ data, setData ] = useState(null)
-    const [requestData, setRequestData] = useState(null)
+    const [ isLoading, setIsLoading ] = useState(false);
+    const [ data, setData ] = useState(null);
+    const [requestData, setRequestData] = useState(null);
+    const [dateErr, setDateErr] = useState(false);
+    const [idErr, setIdErr] = useState(false);
 
     useEffect(() => {
         (async ()=>{
@@ -237,25 +239,35 @@ function PlayerQuery(){
     const submit = (event) => {
         // add http get request stuff here.
         var requestData = {};
-        requestData.name = document.getElementById('playerName').value;
-        requestData.startDate = document.getElementById('startDate').value;
-        requestData.endDate = document.getElementById('endDate').value;
-        requestData.playerID = parseInt(document.getElementById('playerID').value);
-        const requestOptions = {
-            method : 'POST',
-            headers : {'Content-Type': 'application/json', 
-                    },
-            body : JSON.stringify(requestData)
-        };
+        if ((document.getElementById('playerName').value!=='' || document.getElementById('playerID').value!==''))
+        {
 
-        console.log(JSON.stringify(requestOptions));
-        // this will likely change as it's going to handle the response as well.
-        // but for now, I've verified the body of the post request in postman
-        // fetch('http://127.0.0.1:8000/dbQuery/', requestOptions)
-        //     .then(response => setData(response.json()));
-            //.then(data => console.log("this is filler"));
-        setRequestData(requestOptions);
+            if (document.getElementById('startDate').value <= document.getElementById('endDate').value)
+            {
+                requestData.name = document.getElementById('playerName').value;
+                requestData.startDate = document.getElementById('startDate').value;
+                requestData.endDate = document.getElementById('endDate').value;
+                requestData.playerID = parseInt(document.getElementById('playerID').value);
+                const requestOptions = {
+                    method : 'POST',
+                    headers : {'Content-Type': 'application/json', 
+                            },
+                    body : JSON.stringify(requestData)
+                };
 
+                console.log(JSON.stringify(requestOptions));
+                // this will likely change as it's going to handle the response as well.
+                // but for now, I've verified the body of the post request in postman
+                // fetch('http://127.0.0.1:8000/dbQuery/', requestOptions)
+                //     .then(response => setData(response.json()));
+                    //.then(data => console.log("this is filler"));
+                setRequestData(requestOptions);
+            }else{
+                setDateErr(true);
+            }
+        }else{
+            setIdErr(true);
+        }
     };
     return ( 
         <React.Fragment>
@@ -263,22 +275,30 @@ function PlayerQuery(){
             Individual Player Stats
             <br/><br/><br/>
             <TextField id="playerName" type="text" 
-            label= " Player Name "  
-            />
+            label= " Player Name "
+            error={idErr}
+            helperText={idErr === true ? "must provide name or id" : "playerID takes precedence"}
+            />&nbsp;&nbsp;&nbsp;&nbsp;
             <TextField id="startDate" 
             type="date" 
-            helperText="default 1st career game"
+            helperText={dateErr === true ? "end date must be later" : "default 1st career game"}
             label="Start Date"
-            InputLabelProps={{ shrink: true }} 
-            />   
+            InputLabelProps={{ shrink: true }}
+            error={dateErr} 
+            />&nbsp;&nbsp;&nbsp;&nbsp;
             <TextField id="endDate" 
             type="date"  
-            helperText="default is latest game"
+            helperText={dateErr === true ? "end date must be later" : "default 1st career game"}
             label="End Date"
-            InputLabelProps={{ shrink: true }} 
-            />  
-            <TextField id="playerID" type="text" 
-            label= " Player ID "  
+            InputLabelProps={{ shrink: true }}
+            error={dateErr} 
+            />&nbsp;&nbsp;&nbsp;&nbsp;  
+            <TextField 
+            id="playerID" 
+            type="text" 
+            label= " Player ID "
+            helperText = {idErr === true ? "must provide name or id" : "playerID takes precedence"}
+            error={idErr}  
             />
             <br />
             <Grid container spacing={4}>
