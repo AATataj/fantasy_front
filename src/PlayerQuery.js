@@ -5,6 +5,9 @@ import Grid from '@material-ui/core/Grid';
 import 'antd/dist/antd.css';
 import './index.css';
 import { Table } from 'antd';
+import './App.css';
+
+
 
 const columns = [
     {
@@ -316,6 +319,7 @@ function PlayerQuery(){
         <Table columns={columns} 
                dataSource={data} 
                pagination={{ defaultPageSize: 20, showSizeChanger: true, pageSizeOptions: ['25', '50', '100']}}        
+               rowClassName={(record, index) => index % 2 === 0 ? 'table-row-light' :  'table-row-dark'}
                size='small'
         />
         </React.Fragment>
