@@ -285,6 +285,7 @@ function PlayerQuery(){
             <TextField id="startDate" 
             type="date" 
             helperText={dateErr === true ? "end date must be later" : "default 1st career game"}
+            //InputProps={{inputProps: {min : "01-10-2020", max: "10-10-2020"} }}
             label="Start Date"
             InputLabelProps={{ shrink: true }}
             error={dateErr} 
