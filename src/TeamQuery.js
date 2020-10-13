@@ -6,6 +6,7 @@ import 'antd/dist/antd.css';
 import './index.css';
 import { Table } from 'antd';
 import './App.css';
+import TeamsMenu from './TeamsMenu.js';
 
 
 
@@ -213,45 +214,7 @@ const columns = [
         },
         width:'2%'
       },
-  ];
-const teams =[
-    {   
-        division : 'Atlantic',
-        teams : [
-            'TOR', 'BOS', 'PHI', 'BYK', 'NYK'
-        ]
-    },
-    {   
-        division : 'Central',
-        teams : [
-            'MIL', 'IND', 'CHI', 'DET', 'CLE'
-        ]
-    },
-    {   
-        division : 'Southeast',
-        teams : [
-            'MIA', 'ORL', 'CHA', 'WAS', 'ATL'
-        ]
-    },
-    {   
-        division : 'Northwest',
-        teams : [
-            'DEN', 'OKC', 'UTA', 'POR', 'MIN'
-        ]
-    },
-    {   
-        division : 'Pacific',
-        teams : [
-            'LAL', 'LAC', 'PHX', 'SAC', 'GSW'
-        ]
-    },
-    {   
-        division : 'Southwest',
-        teams : [
-            'HOU', 'DAL', 'MEM', 'SAS', 'NOP'
-        ]
-    }  
-]  
+  ];  
 function TeamQuery(){
     const [ isLoading, setIsLoading ] = useState(false);
     const [ data, setData ] = useState(null);
@@ -312,20 +275,21 @@ function TeamQuery(){
     return ( 
         <React.Fragment>
             <br />
-            Individual Player Stats
+            Team Stats
             <br/><br/><br/>
-            <TextField id="team" type="text" 
+            {/* <TextField id="team" type="text" 
             label= "Team"
             error={idErr}
             helperText={idErr === true ? "must provide name or id" : "playerID takes precedence"}
-            />&nbsp;&nbsp;&nbsp;&nbsp;
-            <TextField 
+            /> */}
+            {/* <TextField 
             id="opp" 
             type="text" 
             label= "Opponent"
             helperText = {idErr === true ? "must provide name or id" : "playerID takes precedence"}
             error={idErr}  
-            />&nbsp;&nbsp;&nbsp;&nbsp;
+            />*/}
+            <TeamsMenu />&nbsp;&nbsp;&nbsp;&nbsp;<TeamsMenu />&nbsp;&nbsp;&nbsp;&nbsp;
             <TextField id="startDate" 
             type="date" 
             helperText={dateErr === true ? "end date must be later" : "default 1st career game"}

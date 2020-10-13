@@ -7,7 +7,7 @@ import TeamQuery from './TeamQuery';
 import LeadersQuery from './LeadersQuery';
 
 function DBquery() {
-  const [qType, setQType] = React.useState('Player Stats Query'); 
+  const [qType, setQType] = React.useState('Team Stats Query'); 
   useEffect(() =>{
     console.log("Query type changed to " + qType);
   },[qType]);
