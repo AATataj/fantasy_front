@@ -220,7 +220,7 @@ function TeamQuery(){
     const [ data, setData ] = useState(null);
     const [requestData, setRequestData] = useState(null);
     const [dateErr, setDateErr] = useState(false);
-    const [idErr, setIdErr] = useState(false);
+    //const [idErr, setIdErr] = useState(false);
 
     useEffect(() => {
         (async ()=>{
@@ -269,7 +269,7 @@ function TeamQuery(){
                 setDateErr(true);
             }
         }else{
-            setIdErr(true);
+            //setIdErr(true);
         }
     };
     return ( 
