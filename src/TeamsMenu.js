@@ -7,6 +7,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import DetailsIcon from '@material-ui/icons/Details';
 import IconButton from '@material-ui/core/IconButton';
+import Drawer from '@material-ui/core/Drawer';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -16,11 +18,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const options = [
-  'Player Stats Query',
-  'Team Stats Query',
-  'League Leaders Query',
-];
 const teams =[
     {   
         division : 'Atlantic',
@@ -64,15 +61,31 @@ function TeamsMenu(props) {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [selectedIndex, setSelectedIndex] = React.useState(0);
-   
+    const [toggleAtlanticDrawer, setToggleAtlanticDrawer] = React.useState(null);
+    const [div, setDiv] = React.useState({
+        Atlantic : false,
+        Central : false,
+        Southeast : false,
+        Northwest : false,
+        Pacific : false,
+        Southwest : false,
+    });
+    const toggleDrawer = (anchor, open) => (event) => {
+        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+          return;
+        }
+    
+        setDiv({ ...div, [anchor]: open });
+      };
+    
     const handleClickListItem = (event) => {
       setAnchorEl(event.currentTarget);
     };
    
     const handleMenuItemClick = (event, index) => {
       setSelectedIndex(index);
-      console.log(options[index]);
-      props.qType(options[index]);
+      console.log(teams[index].division);
+      //props.qType(options[index]);
       setAnchorEl(null);
     };
    
@@ -91,7 +104,7 @@ function TeamsMenu(props) {
                     onClick={handleClickListItem}
                     >
                     <DetailsIcon />  
-                    <ListItemText primary={options[selectedIndex]}/>
+                    <ListItemText primary={teams[selectedIndex].division}/>
                     </ListItem>
                 </List>
                 <Menu
@@ -101,13 +114,13 @@ function TeamsMenu(props) {
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                 >
-                    {options.map((option, index) => (
+                    {teams.map((option, index) => (
                     <MenuItem
-                        key={option}
+                        key={option.division}
                         selected={index === selectedIndex}
-                        onClick={(event) => handleMenuItemClick(event, index)}
+                        onClick={(event) => toggleAtlanticDrawer(anchor, true)}
                     >
-                        {option}
+                        {option.division}
                     </MenuItem>
                     ))}
                 </Menu>
