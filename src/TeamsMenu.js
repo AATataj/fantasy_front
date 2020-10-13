@@ -1,6 +1,5 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import ListSubheader from '@material-ui/core/ListSubheader';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -35,21 +34,21 @@ export default function TeamsMenu() {
   
   
 
-  const handleClick = (event) => {
+  const handleDivClick = (event) => {
     //setOpen(!open);
     const tgt = event.currentTarget.id;
     if (tgt === "Atlantic")
-        setOpenAtl(true);
+        setOpenAtl(!openAtl);
     else if (tgt === "Central")
-        setOpenCen(true);
+        setOpenCen(!openCen);
     else if (tgt === "Southeast")
-        setOpenSE(true);
+        setOpenSE(!openSE);
     else if (tgt === "Northwest")
-        setOpenNW(true);
+        setOpenNW(!openNW);
     else if (tgt === "Pacific")
-        setOpenPac(true);
+        setOpenPac(!openPac);
     else if (tgt === "Southwest")
-        setOpenSW(true);
+        setOpenSW(!openSW);
     console.log(tgt);
   };
 
@@ -57,14 +56,9 @@ export default function TeamsMenu() {
     <List
       component="nav"
       aria-labelledby="nested-list-subheader"
-      subheader={
-        <ListSubheader component="div" id="nested-list-subheader">
-          Nested List Items
-        </ListSubheader>
-      }
       className={classes.root}
     >
-      <ListItem button onClick={handleClick} id="Atlantic">
+      <ListItem button onClick={handleDivClick} id="Atlantic">
         <ListItemText primary="Atlantic" />
         {openAtl ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
@@ -75,7 +69,7 @@ export default function TeamsMenu() {
           </ListItem>
         </List>
       </Collapse>
-      <ListItem button onClick={handleClick} id="Central">
+      <ListItem button onClick={handleDivClick} id="Central">
         <ListItemText primary="Central" />
         {openCen ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
@@ -86,7 +80,7 @@ export default function TeamsMenu() {
           </ListItem>
         </List>
       </Collapse>
-      <ListItem button onClick={handleClick} id="Southeast">
+      <ListItem button onClick={handleDivClick} id="Southeast">
         <ListItemText primary="Southeast" />
         {openSE ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
@@ -97,7 +91,7 @@ export default function TeamsMenu() {
           </ListItem>
         </List>
       </Collapse>
-      <ListItem button onClick={handleClick} id="Northwest">
+      <ListItem button onClick={handleDivClick} id="Northwest">
         <ListItemText primary="Northwest" />
         {openNW ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
@@ -107,7 +101,7 @@ export default function TeamsMenu() {
             <ListItemText primary="Starred" />
           </ListItem>
         </List>
-      </Collapse><ListItem button onClick={handleClick} id="Pacific">
+      </Collapse><ListItem button onClick={handleDivClick} id="Pacific">
         <ListItemText primary="Pacific" />
         {openPac ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
@@ -117,7 +111,7 @@ export default function TeamsMenu() {
             <ListItemText primary="Starred" />
           </ListItem>
         </List>
-      </Collapse><ListItem button onClick={handleClick} id="Southwest">
+      </Collapse><ListItem button onClick={handleDivClick} id="Southwest">
         <ListItemText primary="Southwest" />
         {openSW ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
