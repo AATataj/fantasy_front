@@ -1,132 +1,133 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import ListSubheader from '@material-ui/core/ListSubheader';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import MenuItem from '@material-ui/core/MenuItem';
+import Collapse from '@material-ui/core/Collapse';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
 import Menu from '@material-ui/core/Menu';
-import DetailsIcon from '@material-ui/icons/Details';
-import IconButton from '@material-ui/core/IconButton';
-import Drawer from '@material-ui/core/Drawer';
+import MenuItem from '@material-ui/core/MenuItem';
+import MenuIcon from '@material-ui/icons/Menu';
 
 
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: 'black', //theme.palette.background.paper,
-    color: 'white'
+    width: '100%',
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper,
+  },
+  nested: {
+    paddingLeft: theme.spacing(4),
   },
 }));
 
-const teams =[
-    {   
-        division : 'Atlantic',
-        teams : [
-            'TOR', 'BOS', 'PHI', 'BYK', 'NYK'
-        ]
-    },
-    {   
-        division : 'Central',
-        teams : [
-            'MIL', 'IND', 'CHI', 'DET', 'CLE'
-        ]
-    },
-    {   
-        division : 'Southeast',
-        teams : [
-            'MIA', 'ORL', 'CHA', 'WAS', 'ATL'
-        ]
-    },
-    {   
-        division : 'Northwest',
-        teams : [
-            'DEN', 'OKC', 'UTA', 'POR', 'MIN'
-        ]
-    },
-    {   
-        division : 'Pacific',
-        teams : [
-            'LAL', 'LAC', 'PHX', 'SAC', 'GSW'
-        ]
-    },
-    {   
-        division : 'Southwest',
-        teams : [
-            'HOU', 'DAL', 'MEM', 'SAS', 'NOP'
-        ]
-    },  
-]
+export default function TeamsMenu() {
+  const classes = useStyles();
+  const [openAtl, setOpenAtl] = React.useState(false);
+  const [openCen, setOpenCen] = React.useState(false);
+  const [openSE, setOpenSE] = React.useState(false);
+  const [openNW, setOpenNW] = React.useState(false);
+  const [openPac, setOpenPac] = React.useState(false);
+  const [openSW, setOpenSW] = React.useState(false);
+  
+  
 
-function TeamsMenu(props) {
-    const classes = useStyles();
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const [selectedIndex, setSelectedIndex] = React.useState(0);
-    const [toggleAtlanticDrawer, setToggleAtlanticDrawer] = React.useState(null);
-    const [div, setDiv] = React.useState({
-        Atlantic : false,
-        Central : false,
-        Southeast : false,
-        Northwest : false,
-        Pacific : false,
-        Southwest : false,
-    });
-    const toggleDrawer = (anchor, open) => (event) => {
-        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-          return;
-        }
-    
-        setDiv({ ...div, [anchor]: open });
-      };
-    
-    const handleClickListItem = (event) => {
-      setAnchorEl(event.currentTarget);
-    };
-   
-    const handleMenuItemClick = (event, index) => {
-      setSelectedIndex(index);
-      console.log(teams[index].division);
-      //props.qType(options[index]);
-      setAnchorEl(null);
-    };
-   
-    const handleClose = () => {
-      setAnchorEl(null);
-    };
-     return (
-         <React.Fragment>
-             <IconButton>
-                <List component="nav" aria-label="Device settings">
-                    <ListItem
-                    button
-                    aria-haspopup="true"
-                    aria-controls="lock-menu"
-                    aria-label="when device is locked"
-                    onClick={handleClickListItem}
-                    >
-                    <DetailsIcon />  
-                    <ListItemText primary={teams[selectedIndex].division}/>
-                    </ListItem>
-                </List>
-                <Menu
-                    id="lock-menu"
-                    anchorEl={anchorEl}
-                    keepMounted
-                    open={Boolean(anchorEl)}
-                    onClose={handleClose}
-                >
-                    {teams.map((option, index) => (
-                    <MenuItem
-                        key={option.division}
-                        selected={index === selectedIndex}
-                        onClick={(event) => toggleAtlanticDrawer(anchor, true)}
-                    >
-                        {option.division}
-                    </MenuItem>
-                    ))}
-                </Menu>
-         </IconButton>
-       </React.Fragment>
-     );
-   
+  const handleClick = (event) => {
+    //setOpen(!open);
+    const tgt = event.currentTarget.id;
+    if (tgt === "Atlantic")
+        setOpenAtl(true);
+    else if (tgt === "Central")
+        setOpenCen(true);
+    else if (tgt === "Southeast")
+        setOpenSE(true);
+    else if (tgt === "Northwest")
+        setOpenNW(true);
+    else if (tgt === "Pacific")
+        setOpenPac(true);
+    else if (tgt === "Southwest")
+        setOpenSW(true);
+    console.log(tgt);
+  };
+
+  return (
+    <List
+      component="nav"
+      aria-labelledby="nested-list-subheader"
+      subheader={
+        <ListSubheader component="div" id="nested-list-subheader">
+          Nested List Items
+        </ListSubheader>
+      }
+      className={classes.root}
+    >
+      <ListItem button onClick={handleClick} id="Atlantic">
+        <ListItemText primary="Atlantic" />
+        {openAtl ? <ExpandLess /> : <ExpandMore />}
+      </ListItem>
+      <Collapse in={openAtl} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItem button className={classes.nested}>
+            <ListItemText primary="Starred" />
+          </ListItem>
+        </List>
+      </Collapse>
+      <ListItem button onClick={handleClick} id="Central">
+        <ListItemText primary="Central" />
+        {openCen ? <ExpandLess /> : <ExpandMore />}
+      </ListItem>
+      <Collapse in={openCen} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItem button className={classes.nested}>
+            <ListItemText primary="Starred" />
+          </ListItem>
+        </List>
+      </Collapse>
+      <ListItem button onClick={handleClick} id="Southeast">
+        <ListItemText primary="Southeast" />
+        {openSE ? <ExpandLess /> : <ExpandMore />}
+      </ListItem>
+      <Collapse in={openSE} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItem button className={classes.nested}>
+            <ListItemText primary="Starred" />
+          </ListItem>
+        </List>
+      </Collapse>
+      <ListItem button onClick={handleClick} id="Northwest">
+        <ListItemText primary="Northwest" />
+        {openNW ? <ExpandLess /> : <ExpandMore />}
+      </ListItem>
+      <Collapse in={openNW} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItem button className={classes.nested}>
+            <ListItemText primary="Starred" />
+          </ListItem>
+        </List>
+      </Collapse><ListItem button onClick={handleClick} id="Pacific">
+        <ListItemText primary="Pacific" />
+        {openPac ? <ExpandLess /> : <ExpandMore />}
+      </ListItem>
+      <Collapse in={openPac} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItem button className={classes.nested}>
+            <ListItemText primary="Starred" />
+          </ListItem>
+        </List>
+      </Collapse><ListItem button onClick={handleClick} id="Southwest">
+        <ListItemText primary="Southwest" />
+        {openSW ? <ExpandLess /> : <ExpandMore />}
+      </ListItem>
+      <Collapse in={openSW} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItem button className={classes.nested}>
+            <ListItemText primary="Starred" />
+          </ListItem>
+        </List>
+      </Collapse>
+    </List>
+  );
 }
-export default TeamsMenu;
