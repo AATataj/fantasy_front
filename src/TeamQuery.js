@@ -214,7 +214,44 @@ const columns = [
         width:'2%'
       },
   ];
-
+const teams =[
+    {   
+        division : 'Atlantic',
+        teams : [
+            'TOR', 'BOS', 'PHI', 'BYK', 'NYK'
+        ]
+    },
+    {   
+        division : 'Central',
+        teams : [
+            'MIL', 'IND', 'CHI', 'DET', 'CLE'
+        ]
+    },
+    {   
+        division : 'Southeast',
+        teams : [
+            'MIA', 'ORL', 'CHA', 'WAS', 'ATL'
+        ]
+    },
+    {   
+        division : 'Northwest',
+        teams : [
+            'DEN', 'OKC', 'UTA', 'POR', 'MIN'
+        ]
+    },
+    {   
+        division : 'Pacific',
+        teams : [
+            'LAL', 'LAC', 'PHX', 'SAC', 'GSW'
+        ]
+    },
+    {   
+        division : 'Southwest',
+        teams : [
+            'HOU', 'DAL', 'MEM', 'SAS', 'NOP'
+        ]
+    }  
+]  
 function TeamQuery(){
     const [ isLoading, setIsLoading ] = useState(false);
     const [ data, setData ] = useState(null);
@@ -277,10 +314,17 @@ function TeamQuery(){
             <br />
             Individual Player Stats
             <br/><br/><br/>
-            <TextField id="playerName" type="text" 
-            label= " Player Name "
+            <TextField id="team" type="text" 
+            label= "Team"
             error={idErr}
             helperText={idErr === true ? "must provide name or id" : "playerID takes precedence"}
+            />&nbsp;&nbsp;&nbsp;&nbsp;
+            <TextField 
+            id="opp" 
+            type="text" 
+            label= "Opponent"
+            helperText = {idErr === true ? "must provide name or id" : "playerID takes precedence"}
+            error={idErr}  
             />&nbsp;&nbsp;&nbsp;&nbsp;
             <TextField id="startDate" 
             type="date" 
@@ -297,13 +341,6 @@ function TeamQuery(){
             InputLabelProps={{ shrink: true }}
             error={dateErr} 
             />&nbsp;&nbsp;&nbsp;&nbsp;  
-            <TextField 
-            id="playerID" 
-            type="text" 
-            label= " Player ID "
-            helperText = {idErr === true ? "must provide name or id" : "playerID takes precedence"}
-            error={idErr}  
-            />
             <br />
             <Grid container spacing={4}>
                 <Grid item xs={3} />
