@@ -4,17 +4,11 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Collapse from '@material-ui/core/Collapse';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
 
 const options = [   
-    {
-        division : "Select Team",
-        teams : []
-    },
     { 
         division : "Atlantic",
         teams : [ "TOR", "BOS", "PHI", "BYK", "NYK"]
@@ -83,11 +77,23 @@ export default function TeamsMenu() {
         setOpenSW(!openSW);
     console.log(tgt);
   };
-  const handleMenuItemClick = (event, index) => {
+  const handleDivItemClick = (event, index) => {
     setSelectedIndex(index);
-    console.log(options[index]);
+    console.log(options[index].division);
+    console.log(options[selectedIndex+1].teams[0]);
     setAnchorEl(null);
-    // pop up another menu with teams corresponding to division
+    if (options[index].division === "Atlantic")
+        setOpenAtl(!openAtl);
+    else if (options[index].division === "Central")
+        setOpenCen(!openCen);
+    else if (options[index].division === "Southeast")
+        setOpenSE(!openSE);
+    else if (options[index].division === "Northwest")
+        setOpenNW(!openNW);
+    else if (options[index].division === "Pacific")
+        setOpenPac(!openPac);
+    else if (options[index].division === "Southwest")
+        setOpenSW(!openSW);
   };
 
   const handleClose = () => {
@@ -104,11 +110,27 @@ export default function TeamsMenu() {
       <ListItem 
             button 
             onClick={handleClickListItem} 
-            id="test"
+            id='leagueList'
             >
           <ListItemText primary={options[selectedIndex].division} />
       </ListItem>
-      <ListItem button onClick={handleDivClick} id="Atlantic">
+      <Collapse in={openAtl} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding id={options[selectedIndex].division}>
+          <ListItem button className={classes.nested}>
+            {/* <ListItemText primary="Starred" /> */}
+            {options[selectedIndex].teams.map((option, index) => (
+            <ListItemText
+              key={options[selectedIndex].teams[index]}
+              //selected={index === selectedIndex}
+              onClick={(event) => handleDivItemClick(event, index)}
+            >
+              {option.teams[index]}
+            </ListItemText>
+          ))}
+          </ListItem>
+        </List>
+      </Collapse>
+      {/* <ListItem button onClick={handleDivClick} id="Atlantic">
         <ListItemText primary="Atlantic" />
         {openAtl ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
@@ -171,7 +193,7 @@ export default function TeamsMenu() {
             <ListItemText primary="Starred" />
           </ListItem>
         </List>
-      </Collapse>
+      </Collapse> */}
     </List>
     <Menu
         id="tmMenu"
@@ -184,9 +206,11 @@ export default function TeamsMenu() {
             <MenuItem
               key={option.division}
               selected={index === selectedIndex}
-              onClick={(event) => handleMenuItemClick(event, index)}
+              onClick={(event) => handleDivItemClick(event, index)}
             >
-              {option.division}
+              {!openAtl && !openCen && !openSE && !openNW && !openPac && !openSW 
+              ? "Select Team" 
+              : option.division}
             </MenuItem>
           ))}
 
