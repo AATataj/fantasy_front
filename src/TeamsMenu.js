@@ -55,7 +55,7 @@ export default function TeamsMenu() {
   const [openPac, setOpenPac] = React.useState(false);
   const [openSW, setOpenSW] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const [selectedIndex, setSelectedIndex] = React.useState(null);
 
   const handleClickListItem = (event) => {
     setAnchorEl(event.currentTarget);
@@ -112,15 +112,18 @@ export default function TeamsMenu() {
             onClick={handleClickListItem} 
             id='leagueList'
             >
-          <ListItemText primary={options[selectedIndex].division} />
+          <ListItemText primary={
+              !openAtl && !openCen && !openSE && !openNW && !openPac && !openSW 
+              ? "Select Team" 
+              : options[selectedIndex].division} />
       </ListItem>
       <Collapse in={openAtl} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding id={options[selectedIndex].division}>
+        <List component="div" disablePadding id={selectedIndex===null? "" : options[selectedIndex].division}>
           <ListItem button className={classes.nested}>
             {/* <ListItemText primary="Starred" /> */}
-            {options[selectedIndex].teams.map((option, index) => (
+            {options.map((option, index) => (
             <ListItemText
-              key={options[selectedIndex].teams[index]}
+              // key={options[selectedIndex].teams[index]}
               //selected={index === selectedIndex}
               onClick={(event) => handleDivItemClick(event, index)}
             >
@@ -130,70 +133,7 @@ export default function TeamsMenu() {
           </ListItem>
         </List>
       </Collapse>
-      {/* <ListItem button onClick={handleDivClick} id="Atlantic">
-        <ListItemText primary="Atlantic" />
-        {openAtl ? <ExpandLess /> : <ExpandMore />}
-      </ListItem>
-      <Collapse in={openAtl} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItem button className={classes.nested}>
-            <ListItemText primary="Starred" />
-          </ListItem>
-        </List>
-      </Collapse>
-      <ListItem button onClick={handleDivClick} id="Central">
-        <ListItemText primary="Central" />
-        {openCen ? <ExpandLess /> : <ExpandMore />}
-      </ListItem>
-      <Collapse in={openCen} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItem button className={classes.nested}>
-            <ListItemText primary="Starred" />
-          </ListItem>
-        </List>
-      </Collapse>
-      <ListItem button onClick={handleDivClick} id="Southeast">
-        <ListItemText primary="Southeast" />
-        {openSE ? <ExpandLess /> : <ExpandMore />}
-      </ListItem>
-      <Collapse in={openSE} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItem button className={classes.nested}>
-            <ListItemText primary="Starred" />
-          </ListItem>
-        </List>
-      </Collapse>
-      <ListItem button onClick={handleDivClick} id="Northwest">
-        <ListItemText primary="Northwest" />
-        {openNW ? <ExpandLess /> : <ExpandMore />}
-      </ListItem>
-      <Collapse in={openNW} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItem button className={classes.nested}>
-            <ListItemText primary="Starred" />
-          </ListItem>
-        </List>
-      </Collapse><ListItem button onClick={handleDivClick} id="Pacific">
-        <ListItemText primary="Pacific" />
-        {openPac ? <ExpandLess /> : <ExpandMore />}
-      </ListItem>
-      <Collapse in={openPac} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItem button className={classes.nested}>
-            <ListItemText primary="Starred" />
-          </ListItem>
-        </List>
-      </Collapse><ListItem button onClick={handleDivClick} id="Southwest">
-        <ListItemText primary="Southwest" />
-        {openSW ? <ExpandLess /> : <ExpandMore />}
-      </ListItem>
-      <Collapse in={openSW} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItem button className={classes.nested}>
-            <ListItemText primary="Starred" />
-          </ListItem>
-        </List>
-      </Collapse> */}
+      
     </List>
     <Menu
         id="tmMenu"
@@ -208,9 +148,7 @@ export default function TeamsMenu() {
               selected={index === selectedIndex}
               onClick={(event) => handleDivItemClick(event, index)}
             >
-              {!openAtl && !openCen && !openSE && !openNW && !openPac && !openSW 
-              ? "Select Team" 
-              : option.division}
+              {option.division}
             </MenuItem>
           ))}
 
@@ -218,3 +156,68 @@ export default function TeamsMenu() {
     </React.Fragment>   
   );
 }
+
+// <ListItem button onClick={handleDivClick} id="Atlantic">
+//         <ListItemText primary="Atlantic" />
+//         {openAtl ? <ExpandLess /> : <ExpandMore />}
+//       </ListItem>
+//       <Collapse in={openAtl} timeout="auto" unmountOnExit>
+//         <List component="div" disablePadding>
+//           <ListItem button className={classes.nested}>
+//             <ListItemText primary="Starred" />
+//           </ListItem>
+//         </List>
+//       </Collapse>
+//       <ListItem button onClick={handleDivClick} id="Central">
+//         <ListItemText primary="Central" />
+//         {openCen ? <ExpandLess /> : <ExpandMore />}
+//       </ListItem>
+//       <Collapse in={openCen} timeout="auto" unmountOnExit>
+//         <List component="div" disablePadding>
+//           <ListItem button className={classes.nested}>
+//             <ListItemText primary="Starred" />
+//           </ListItem>
+//         </List>
+//       </Collapse>
+//       <ListItem button onClick={handleDivClick} id="Southeast">
+//         <ListItemText primary="Southeast" />
+//         {openSE ? <ExpandLess /> : <ExpandMore />}
+//       </ListItem>
+//       <Collapse in={openSE} timeout="auto" unmountOnExit>
+//         <List component="div" disablePadding>
+//           <ListItem button className={classes.nested}>
+//             <ListItemText primary="Starred" />
+//           </ListItem>
+//         </List>
+//       </Collapse>
+//       <ListItem button onClick={handleDivClick} id="Northwest">
+//         <ListItemText primary="Northwest" />
+//         {openNW ? <ExpandLess /> : <ExpandMore />}
+//       </ListItem>
+//       <Collapse in={openNW} timeout="auto" unmountOnExit>
+//         <List component="div" disablePadding>
+//           <ListItem button className={classes.nested}>
+//             <ListItemText primary="Starred" />
+//           </ListItem>
+//         </List>
+//       </Collapse><ListItem button onClick={handleDivClick} id="Pacific">
+//         <ListItemText primary="Pacific" />
+//         {openPac ? <ExpandLess /> : <ExpandMore />}
+//       </ListItem>
+//       <Collapse in={openPac} timeout="auto" unmountOnExit>
+//         <List component="div" disablePadding>
+//           <ListItem button className={classes.nested}>
+//             <ListItemText primary="Starred" />
+//           </ListItem>
+//         </List>
+//       </Collapse><ListItem button onClick={handleDivClick} id="Southwest">
+//         <ListItemText primary="Southwest" />
+//         {openSW ? <ExpandLess /> : <ExpandMore />}
+//       </ListItem>
+//       <Collapse in={openSW} timeout="auto" unmountOnExit>
+//         <List component="div" disablePadding>
+//           <ListItem button className={classes.nested}>
+//             <ListItemText primary="Starred" />
+//           </ListItem>
+//         </List>
+//       </Collapse>
