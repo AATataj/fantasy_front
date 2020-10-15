@@ -45,19 +45,9 @@ export default function TeamsMenu(props) {
 
   useEffect(()=>{
     console.log("in useEffect()");
-    console.log(otherSelected);
 
   },[selectedTeam, otherSelected])
 
-  // const menu2 = (
-  //   options.map((division, index1) => {
-  //     console.log(division.division + " " + index1),
-  //     division.teams.map((team, index2) =>
-  //       <SubMenu key={division.division} title={division.division}></SubMenu>,
-  //         <Menu.Item key={team}>{team}</Menu.Item>, 
-  //       console.log(team + " " + index2) 
-  //    )})
-  // )
   const menu = (
     <Menu
     style={{ width: 240 }}
@@ -66,53 +56,11 @@ export default function TeamsMenu(props) {
     {options.map((division, index1) => (
       <SubMenu key={division.division} title={division.division}>
       {division.teams.map((team, index2) => (
-          <Menu.Item key={team} onClick={chooseTeam} disabled={otherSelected==={team}?true:false}>{team}</Menu.Item>
+          console.log((otherSelected===team).toString() + " " + team + " " + otherSelected),
+          <Menu.Item key={team} onClick={chooseTeam} disabled={otherSelected==={team}? true : false}>{team}</Menu.Item>
       ))}
       </SubMenu>
     ))}
-    {/* <SubMenu key="sub1" 
-    title="Atlantic">
-        <Menu.Item key="TOR"  onClick={chooseTeam} disabled={otherSelected==="TOR"? true : false}>TOR</Menu.Item>
-        <Menu.Item key="BOS"  onClick={chooseTeam} disabled={otherSelected==="BOS"? true : false}>BOS</Menu.Item>
-        <Menu.Item key="PHI" onClick={chooseTeam} disabled={otherSelected==="PHI"? true : false}>PHI</Menu.Item>
-        <Menu.Item key="BKY" onClick={chooseTeam} disabled={otherSelected==="BKY"? true : false}>BKY</Menu.Item>
-        <Menu.Item key="NYK" onClick={chooseTeam} disabled={otherSelected==="NYK"? true : false}>NYK</Menu.Item>
-    </SubMenu>
-    <SubMenu key="sub2" title="Central">
-      <Menu.Item key="MIL" onClick={chooseTeam} disabled={otherSelected==="MIL"? true : false}>MIL</Menu.Item>
-      <Menu.Item key="IND" onClick={chooseTeam} disabled={otherSelected==="IND"? true : false}>IND</Menu.Item>
-      <Menu.Item key="CHI" onClick={chooseTeam} disabled={otherSelected==="CHI"? true : false}>CHI</Menu.Item>
-      <Menu.Item key="DET" onClick={chooseTeam} disabled={otherSelected==="DET"? true : false}>DET</Menu.Item>
-      <Menu.Item key="CLE" onClick={chooseTeam} disabled={otherSelected==="CLE"? true : false}>CLE</Menu.Item>
-    </SubMenu>
-    <SubMenu key="sub3" title="Southeast">
-      <Menu.Item key="MIA" onClick={chooseTeam} disabled={otherSelected==="MIA"? true : false}>MIA</Menu.Item>
-      <Menu.Item key="ORL" onClick={chooseTeam} disabled={otherSelected==="ORL"? true : false}>ORL</Menu.Item>
-      <Menu.Item key="CHA" onClick={chooseTeam} disabled={otherSelected==="CHA"? true : false}>CHA</Menu.Item>
-      <Menu.Item key="WAS" onClick={chooseTeam} disabled={otherSelected==="WAS"? true : false}>WAS</Menu.Item>
-      <Menu.Item key="ATL" onClick={chooseTeam} disabled={otherSelected==="ATL"? true : false}>ATL</Menu.Item>
-    </SubMenu>
-    <SubMenu key="sub4" title="Northwest">
-      <Menu.Item key="DEN" onClick={chooseTeam} disabled={otherSelected==="DEN"? true : false}>DEN</Menu.Item>
-      <Menu.Item key="OKC" onClick={chooseTeam} disabled={otherSelected==="OKC"? true : false}>OKC</Menu.Item>
-      <Menu.Item key="UTA" onClick={chooseTeam} disabled={otherSelected==="UTA"? true : false}>UTA</Menu.Item>
-      <Menu.Item key="POR" onClick={chooseTeam} disabled={otherSelected==="POR"? true : false}>POR</Menu.Item>
-      <Menu.Item key="MIN" onClick={chooseTeam} disabled={otherSelected==="MIN"? true : false}>MIN</Menu.Item>
-    </SubMenu>
-    <SubMenu key="sub5" title="Pacific">
-      <Menu.Item key="LAL" onClick={chooseTeam} disabled={otherSelected==="LAL"? true : false}>LAL</Menu.Item>
-      <Menu.Item key="LAC" onClick={chooseTeam} disabled={otherSelected==="LAC"? true : false}>LAC</Menu.Item>
-      <Menu.Item key="PHX" onClick={chooseTeam} disabled={otherSelected==="PHX"? true : false}>PHX</Menu.Item>
-      <Menu.Item key="SAC" onClick={chooseTeam} disabled={otherSelected==="SAC"? true : false}>SAC</Menu.Item>
-      <Menu.Item key="GSW" onClick={chooseTeam} disabled={otherSelected==="GSW"? true : false}>GSW</Menu.Item>
-    </SubMenu>
-    <SubMenu key="sub6" title="Southwest">
-      <Menu.Item key="HOU" onClick={chooseTeam} disabled={otherSelected==="HOU"? true : false}>HOU</Menu.Item>
-      <Menu.Item key="DAL" onClick={chooseTeam} disabled={otherSelected==="DAL"? true : false}>DAL</Menu.Item>
-      <Menu.Item key="MEM" onClick={chooseTeam} disabled={otherSelected==="MEM"? true : false}>MEM</Menu.Item>
-      <Menu.Item key="SAS" onClick={chooseTeam} disabled={otherSelected==="SAS"? true : false}>SAS</Menu.Item>
-      <Menu.Item key="NOP" onClick={chooseTeam} disabled={otherSelected==="NOP"? true : false}>NOP</Menu.Item>
-    </SubMenu> */}
   </Menu>
   );
   return (
