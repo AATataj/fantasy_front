@@ -220,8 +220,18 @@ function TeamQuery(){
     const [ data, setData ] = useState(null);
     const [requestData, setRequestData] = useState(null);
     const [dateErr, setDateErr] = useState(false);
+    const [selectedTeam, setSelectedTeam] = useState(null);
+    const [selectedOpp, setSelectedOpp] = useState(null);
     //const [idErr, setIdErr] = useState(false);
-
+    const chooseTeam = (event) => {
+      console.log(event.key);
+      setSelectedTeam(event.key);
+  
+    }
+    const chooseOpp = (event) =>{
+      console.log(event.key);
+      setSelectedOpp(event.key)
+    }
     useEffect(() => {
         (async ()=>{
             setIsLoading(true);
@@ -286,10 +296,20 @@ function TeamQuery(){
             id="opp" 
             type="text" 
             label= "Opponent"
-            helperText = {idErr === true ? "must provide name or id" : "playerID takes precedence"}
+            helperText = {idErr ==
+              = true ? "must provide name or id" : "playerID takes precedence"}
             error={idErr}  
             />*/}
-            <TeamsMenu />&nbsp;&nbsp;&nbsp;&nbsp;<TeamsMenu />&nbsp;&nbsp;&nbsp;&nbsp;
+            <TeamsMenu 
+              chooseTeam={chooseTeam} 
+              selectedTeam={selectedTeam}
+              otherSelected={selectedOpp}/>
+              &nbsp;&nbsp;&nbsp;&nbsp;
+            <TeamsMenu 
+              chooseTeam={chooseOpp} 
+                selectedTeam={selectedOpp}
+                otherSelected={selectedTeam}/>
+                &nbsp;&nbsp;&nbsp;&nbsp;
             <TextField id="startDate" 
             type="date" 
             helperText={dateErr === true ? "end date must be later" : "default 1st career game"}
