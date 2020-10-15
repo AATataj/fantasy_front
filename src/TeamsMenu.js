@@ -52,7 +52,14 @@ export default function TeamsMenu(props) {
     <Menu
     style={{ width: 240 }}
     mode="vertical"
-  >
+    > 
+    {
+     options.map((division, index1) => { 
+      console.log(division.division + " " + index1);
+      division.teams.map((team, index2) => 
+        console.log(team + " " + index2)
+     )}) 
+    }
     <SubMenu key="sub1" 
     title="Atlantic">
         <Menu.Item key="TOR"  onClick={chooseTeam} disabled={otherSelected==="TOR"? true : false}>TOR</Menu.Item>
