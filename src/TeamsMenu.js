@@ -45,22 +45,32 @@ export default function TeamsMenu(props) {
 
   useEffect(()=>{
     console.log("in useEffect()");
+    console.log(otherSelected);
 
   },[selectedTeam, otherSelected])
 
+  // const menu2 = (
+  //   options.map((division, index1) => {
+  //     console.log(division.division + " " + index1),
+  //     division.teams.map((team, index2) =>
+  //       <SubMenu key={division.division} title={division.division}></SubMenu>,
+  //         <Menu.Item key={team}>{team}</Menu.Item>, 
+  //       console.log(team + " " + index2) 
+  //    )})
+  // )
   const menu = (
     <Menu
     style={{ width: 240 }}
     mode="vertical"
     > 
-    {
-     options.map((division, index1) => { 
-      console.log(division.division + " " + index1);
-      division.teams.map((team, index2) => 
-        console.log(team + " " + index2)
-     )}) 
-    }
-    <SubMenu key="sub1" 
+    {options.map((division, index1) => (
+      <SubMenu key={division.division} title={division.division}>
+      {division.teams.map((team, index2) => (
+          <Menu.Item key={team} onClick={chooseTeam} disabled={otherSelected==={team}?true:false}>{team}</Menu.Item>
+      ))}
+      </SubMenu>
+    ))}
+    {/* <SubMenu key="sub1" 
     title="Atlantic">
         <Menu.Item key="TOR"  onClick={chooseTeam} disabled={otherSelected==="TOR"? true : false}>TOR</Menu.Item>
         <Menu.Item key="BOS"  onClick={chooseTeam} disabled={otherSelected==="BOS"? true : false}>BOS</Menu.Item>
@@ -102,7 +112,7 @@ export default function TeamsMenu(props) {
       <Menu.Item key="MEM" onClick={chooseTeam} disabled={otherSelected==="MEM"? true : false}>MEM</Menu.Item>
       <Menu.Item key="SAS" onClick={chooseTeam} disabled={otherSelected==="SAS"? true : false}>SAS</Menu.Item>
       <Menu.Item key="NOP" onClick={chooseTeam} disabled={otherSelected==="NOP"? true : false}>NOP</Menu.Item>
-    </SubMenu>
+    </SubMenu> */}
   </Menu>
   );
   return (
