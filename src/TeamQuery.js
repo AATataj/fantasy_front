@@ -222,7 +222,7 @@ function TeamQuery(){
     const [dateErr, setDateErr] = useState(false);
     const [selectedTeam, setSelectedTeam] = useState(null);
     const [selectedOpp, setSelectedOpp] = useState(null);
-    //const [idErr, setIdErr] = useState(false);
+    const [teamErr, setteamErr] = useState(false);
     const chooseTeam = (event) => {
       console.log(event.key);
       setSelectedTeam(event.key);
@@ -252,63 +252,52 @@ function TeamQuery(){
     const submit = (event) => {
         // add http get request stuff here.
         var requestData = {};
-        if ((document.getElementById('playerName').value!=='' || document.getElementById('playerID').value!==''))
+        if (selectedTeam!==null)
         {
-
-            if (document.getElementById('startDate').value <= document.getElementById('endDate').value)
-            {
-                requestData.name = document.getElementById('playerName').value;
+          requestData.team=selectedTeam;
+          requestData.opponent=selectedOpp;
+          if (document.getElementById('startDate').value <= document.getElementById('endDate').value)
+          {
                 requestData.startDate = document.getElementById('startDate').value;
                 requestData.endDate = document.getElementById('endDate').value;
-                requestData.playerID = parseInt(document.getElementById('playerID').value);
-                const requestOptions = {
-                    method : 'POST',
-                    headers : {'Content-Type': 'application/json', 
-                            },
-                    body : JSON.stringify(requestData)
-                };
-
-                console.log(JSON.stringify(requestOptions));
-                // this will likely change as it's going to handle the response as well.
-                // but for now, I've verified the body of the post request in postman
-                // fetch('http://127.0.0.1:8000/dbQuery/', requestOptions)
-                //     .then(response => setData(response.json()));
-                    //.then(data => console.log("this is filler"));
-                setRequestData(requestOptions);
-            }else{
-                setDateErr(true);
-            }
+          }else{
+            setDateErr(true);
+          }
+          const requestOptions = {
+            method : 'POST',
+            headers : {'Content-Type': 'application/json', 
+                    },
+            body : JSON.stringify(requestData)
+          };
+          console.log(requestOptions.body);
         }else{
-            //setIdErr(true);
+          setteamErr(true);
         }
+        //         console.log(JSON.stringify(requestOptions));
+        //         // this will likely change as it's going to handle the response as well.
+        //         // but for now, I've verified the body of the post request in postman
+        //         // fetch('http://127.0.0.1:8000/dbQuery/', requestOptions)
+        //         //     .then(response => setData(response.json()));
+        //             //.then(data => console.log("this is filler"));
+        //         setRequestData(requestOptions);
     };
     return ( 
         <React.Fragment>
             <br />
             Team Stats
             <br/><br/><br/>
-            {/* <TextField id="team" type="text" 
-            label= "Team"
-            error={idErr}
-            helperText={idErr === true ? "must provide name or id" : "playerID takes precedence"}
-            /> */}
-            {/* <TextField 
-            id="opp" 
-            type="text" 
-            label= "Opponent"
-            helperText = {idErr ==
-              = true ? "must provide name or id" : "playerID takes precedence"}
-            error={idErr}  
-            />*/}
             <TeamsMenu 
               chooseTeam={chooseTeam} 
               selectedTeam={selectedTeam}
-              otherSelected={selectedOpp}/>
+              otherSelected={selectedOpp}
+              id = "team"/>
               &nbsp;&nbsp;&nbsp;&nbsp;
             <TeamsMenu 
               chooseTeam={chooseOpp} 
                 selectedTeam={selectedOpp}
-                otherSelected={selectedTeam}/>
+                otherSelected={selectedTeam}
+                id = "opponent"
+                />
                 &nbsp;&nbsp;&nbsp;&nbsp;
             <TextField id="startDate" 
             type="date" 
@@ -338,6 +327,7 @@ function TeamQuery(){
                 </div>
                 </Grid>
             </Grid>
+            <br /><br />
         <Table columns={columns} 
                dataSource={data} 
                pagination={{ defaultPageSize: 20, showSizeChanger: true, pageSizeOptions: ['25', '50', '100']}}        
