@@ -8,15 +8,13 @@ import { Table } from 'antd';
 import './App.css';
 import TeamsMenu from './TeamsMenu.js';
 
-
+/*
+Note, that to save columns, there are composite columns in this table
+so the import of data will require some small handling before piping them into columns here
+whenever we finish the back end reply
+*/
 
 const columns = [
-    {
-      title: 'Name',
-      dataIndex: 'name',
-      key:'name',
-      width: '7%'
-    },
     {
       title: 'Date',
       dataIndex: 'date',
@@ -46,17 +44,7 @@ const columns = [
         width:'2%'
       },
       {
-        title: 'Min',
-        dataIndex: 'minutes',
-        key:'minutes',
-        sorter: {
-          compare: (a, b) => a.minutes - b.minutes,
-          multiple: 1,
-        },
-        width:'2%'
-      },
-      {
-        title: '3FGM',
+        title: '3FGM/A',
         dataIndex: 'number_3fgm',
         key:'number_3fgm',
         sorter: {
@@ -66,7 +54,7 @@ const columns = [
         width:'2%'
       },
       {
-        title: 'FGM',
+        title: 'FGM/A',
         dataIndex: 'fgm',
         key:'fgm',
         sorter: {
@@ -76,27 +64,7 @@ const columns = [
         width:'2%'
       },
       {
-        title: 'FGA',
-        dataIndex: 'fga',
-        key:'fga',
-        sorter: {
-          compare: (a, b) => a.fga - b.fga,
-          multiple: 1,
-        },
-        width:'2%'
-      },
-      {
-        title: 'FG%',
-        dataIndex: 'fgper',
-        key:'fgper',
-        sorter: {
-          compare: (a, b) => a.fgper - b.fgper,
-          multiple: 1,
-        },
-        width:'2%'
-      },
-      {
-        title: 'FTM',
+        title: 'FTM/A',
         dataIndex: 'ftm',
         key:'ftm',
         sorter: {
@@ -106,45 +74,6 @@ const columns = [
         width:'2%'
       },
       {
-        title: 'FTA',
-        dataIndex: 'fta',
-        key:'fta',
-        sorter: {
-          compare: (a, b) => a.fta - b.fta,
-          multiple: 1,
-        },
-        width:'2%'
-      },
-      {
-        title: 'FT%',
-        dataIndex: 'ftper',
-        key:'ftper',
-        sorter: {
-          compare: (a, b) => a.ftper - b.ftper,
-          multiple: 1,
-        },
-        width:'2%'
-      },
-      {
-        title: 'ORB',
-        dataIndex: 'orb',
-        key:'orb',
-        sorter: {
-          compare: (a, b) => a.orb - b.orb,
-          multiple: 1,
-        },
-        width:'2%'
-      },
-      {
-        title: 'DRB',
-        dataIndex: 'drb',
-        key:'drb',
-        sorter: {
-          compare: (a, b) => a.drb - b.drb,
-          multiple: 1,
-        },
-        width:'2%'
-      },{
         title: 'TRB',
         dataIndex: 'trb',
         key:'trb',
@@ -208,6 +137,106 @@ const columns = [
         title: 'PTS',
         dataIndex: 'pts',
         key:'pts',
+        sorter: {
+          compare: (a, b) => a.pts - b.pts,
+          multiple: 1,
+        },
+        width:'2%'
+      },
+      {
+        title: 'Opp3FGM/A',
+        dataIndex: 'number_3fgm',
+        key:'Oppnumber_3fgm',
+        sorter: {
+          compare: (a, b) => a.number_3fgm - b.number_3fgm,
+          multiple: 1,
+        },
+        width:'2%'
+      },
+      {
+        title: 'OppFGM/A',
+        dataIndex: 'fgm',
+        key:'Oppfgm',
+        sorter: {
+          compare: (a, b) => a.fgm - b.fgm,
+          multiple: 1,
+        },
+        width:'2%'
+      },
+      {
+        title: 'OppFTM/A',
+        dataIndex: 'ftm',
+        key:'Oppftm',
+        sorter: {
+          compare: (a, b) => a.ftm - b.ftm,
+          multiple: 1,
+        },
+        width:'2%'
+      },
+      {
+        title: 'OppTRB',
+        dataIndex: 'trb',
+        key:'Opptrb',
+        sorter: {
+          compare: (a, b) => a.trb - b.trb,
+          multiple: 1,
+        },
+        width:'2%'
+      },
+      {
+        title: 'OppAST',
+        dataIndex: 'ast',
+        key:'Oppast',
+        sorter: {
+          compare: (a, b) => a.ast - b.ast,
+          multiple: 1,
+        },
+        width:'2%'
+      },
+      {
+        title: 'OppSTL',
+        dataIndex: 'stl',
+        key:'Oppstl',
+        sorter: {
+          compare: (a, b) => a.stl - b.stl,
+          multiple: 1,
+        },
+        width:'2%'
+      },
+      {
+        title: 'OppBLK',
+        dataIndex: 'blk',
+        key:'Oppblk',
+        sorter: {
+          compare: (a, b) => a.blk - b.blk,
+          multiple: 1,
+        },
+        width:'2%'
+      },
+      {
+        title: 'OppTOV',
+        dataIndex: 'tov',
+        key:'Opptov',
+        sorter: {
+          compare: (a, b) => a.tov - b.tov,
+          multiple: 1,
+        },
+        width:'2%'
+      },
+      {
+        title: 'OppPF',
+        dataIndex: 'pf',
+        key:'Opppf',
+        sorter: {
+          compare: (a, b) => a.pf - b.pf,
+          multiple: 1,
+        },
+        width:'2%'
+      },
+      {
+        title: 'OppPTS',
+        dataIndex: 'pts',
+        key:'Opppts',
         sorter: {
           compare: (a, b) => a.pts - b.pts,
           multiple: 1,
