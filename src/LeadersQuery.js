@@ -6,44 +6,12 @@ import 'antd/dist/antd.css';
 import './index.css';
 import { Table } from 'antd';
 import './App.css';
+import { Menu, Dropdown } from 'antd';
+import { DownOutlined } from '@ant-design/icons';
 
 
 
 const columns = [
-    {
-      title: 'Name',
-      dataIndex: 'name',
-      key:'name',
-      width: '7%'
-    },
-    {
-      title: 'Date',
-      dataIndex: 'date',
-      key:'date',
-      sorter: {
-        compare: (a, b) => Date.parse(a.date) - Date.parse(b.date),
-        multiple: 3,
-      },
-      width:'5%'
-    },
-    {
-      title: 'Team',
-      dataIndex: 'team',
-      key:'team',
-      width:'2%'
-    },
-    {
-      title: 'Opp',
-      dataIndex: 'opponent',
-      key:'opponent',
-      width:'2%'
-    },
-    {
-        title: 'Res',
-        dataIndex: 'result',
-        key:'result',
-        width:'2%'
-      },
       {
         title: 'Min',
         dataIndex: 'minutes',
@@ -221,7 +189,13 @@ function LeadersQuery(){
     const [requestData, setRequestData] = useState(null);
     const [dateErr, setDateErr] = useState(false);
     const [idErr, setIdErr] = useState(false);
+    const [selectedStat, setSelectedStat] = useState(null);
 
+    const chooseStat = (event) => {
+      console.log(event.key);
+      setSelectedStat(event.key);
+  
+    }
     useEffect(() => {
         (async ()=>{
             setIsLoading(true);
@@ -242,12 +216,12 @@ function LeadersQuery(){
     const submit = (event) => {
         // add http get request stuff here.
         var requestData = {};
-        if ((document.getElementById('playerName').value!=='' || document.getElementById('playerID').value!==''))
+        if ((document.getElementById('statCat').value!=='' || document.getElementById('playerID').value!==''))
         {
 
             if (document.getElementById('startDate').value <= document.getElementById('endDate').value)
             {
-                requestData.name = document.getElementById('playerName').value;
+                requestData.name = document.getElementById('statCat').value;
                 requestData.startDate = document.getElementById('startDate').value;
                 requestData.endDate = document.getElementById('endDate').value;
                 requestData.playerID = parseInt(document.getElementById('playerID').value);
@@ -272,20 +246,34 @@ function LeadersQuery(){
             setIdErr(true);
         }
     };
+    const menu = (
+      <Menu
+      style={{ width: 240 }}
+      mode="vertical"
+      > 
+      {columns.map((col, index1) => (
+        <Menu.Item key={col.key} onClick={chooseStat} >{col.title}</Menu.Item>
+      ))}
+    </Menu>
+    );
     return ( 
         <React.Fragment>
             <br />
-            Individual Player Stats
+            League Leaders
             <br/><br/><br/>
-            <TextField id="playerName" type="text" 
+            <Dropdown overlay={menu}>
+              <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+                {selectedStat===null? "Select Stat" : selectedStat} <DownOutlined />
+              </a>
+            </Dropdown>
+            {/* <TextField id="statCat" type="text" 
             label= " Player Name "
             error={idErr}
             helperText={idErr === true ? "must provide name or id" : "playerID takes precedence"}
-            />&nbsp;&nbsp;&nbsp;&nbsp;
+            />&nbsp;&nbsp;&nbsp;&nbsp; */}
             <TextField id="startDate" 
             type="date" 
             helperText={dateErr === true ? "end date must be later" : "default 1st career game"}
-            //InputProps={{inputProps: {min : "01-10-2020", max: "10-10-2020"} }}
             label="Start Date"
             InputLabelProps={{ shrink: true }}
             error={dateErr} 
@@ -297,13 +285,8 @@ function LeadersQuery(){
             InputLabelProps={{ shrink: true }}
             error={dateErr} 
             />&nbsp;&nbsp;&nbsp;&nbsp;  
-            <TextField 
-            id="playerID" 
-            type="text" 
-            label= " Player ID "
-            helperText = {idErr === true ? "must provide name or id" : "playerID takes precedence"}
-            error={idErr}  
-            />
+            <br />
+            <br />
             <br />
             <Grid container spacing={4}>
                 <Grid item xs={3} />

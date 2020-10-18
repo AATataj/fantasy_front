@@ -31,7 +31,6 @@ const options = [
 
 export default function TeamsMenu(props) {
   const SubMenu = Menu.SubMenu;
-  //const [selectedTeam, setSelectedTeam] = React.useState(null);
   const selectedTeam = props.selectedTeam;
   const chooseTeam = props.chooseTeam;
   const otherSelected = props.otherSelected;
