@@ -11,7 +11,9 @@ import { DownOutlined } from '@ant-design/icons';
 
 
 
-const columns = [
+
+
+const categories = [
       {
         title: 'Min',
         dataIndex: 'minutes',
@@ -190,6 +192,19 @@ function LeadersQuery(){
     const [dateErr, setDateErr] = useState(false);
     const [idErr, setIdErr] = useState(false);
     const [selectedStat, setSelectedStat] = useState(null);
+    const tableLayout = [
+      {
+        title: "Name",
+        dataindex : 'name',
+        key: 'name',
+    
+      },
+      {
+        title : {selectedStat},
+        dataindex : {selectedStat},
+        key : {selectedStat}
+      },
+    ]
 
     const chooseStat = (event) => {
       console.log(event.key);
@@ -216,15 +231,14 @@ function LeadersQuery(){
     const submit = (event) => {
         // add http get request stuff here.
         var requestData = {};
-        if ((document.getElementById('statCat').value!=='' || document.getElementById('playerID').value!==''))
+        if (selectedStat!=='')
         {
 
             if (document.getElementById('startDate').value <= document.getElementById('endDate').value)
             {
-                requestData.name = document.getElementById('statCat').value;
+                requestData.name = selectedStat;
                 requestData.startDate = document.getElementById('startDate').value;
                 requestData.endDate = document.getElementById('endDate').value;
-                requestData.playerID = parseInt(document.getElementById('playerID').value);
                 const requestOptions = {
                     method : 'POST',
                     headers : {'Content-Type': 'application/json', 
@@ -251,7 +265,7 @@ function LeadersQuery(){
       style={{ width: 240 }}
       mode="vertical"
       > 
-      {columns.map((col, index1) => (
+      {categories.map((col, index1) => (
         <Menu.Item key={col.key} onClick={chooseStat} >{col.title}</Menu.Item>
       ))}
     </Menu>
@@ -300,7 +314,7 @@ function LeadersQuery(){
                 </div>
                 </Grid>
             </Grid>
-        <Table columns={columns} 
+        <Table columns={tableLayout} 
                dataSource={data} 
                pagination={{ defaultPageSize: 20, showSizeChanger: true, pageSizeOptions: ['25', '50', '100']}}        
                rowClassName={(record, index) => index % 2 === 0 ? 'table-row-light' :  'table-row-dark'}
