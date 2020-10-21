@@ -6,7 +6,7 @@ import 'antd/dist/antd.css';
 import './index.css';
 import { Table } from 'antd';
 import './App.css';
-
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 
 const columns = [
@@ -224,7 +224,7 @@ function PlayerQuery(){
 
     useEffect(() => {
         (async ()=>{
-            setIsLoading(true);
+            setIsLoading(!isLoading);
             if (requestData != null){
                 const fetched = await fetch('http://127.0.0.1:8000/dbQuery/', requestData);
                 const response = await fetched.json();
@@ -232,7 +232,7 @@ function PlayerQuery(){
                     item.fields.key = i;
                     return item.fields;
                 })
-                console.log(fieldss);
+                //console.log(fieldss);
                 //console.log("json parse" +  JSON.parse(response));
                 setData(fieldss);
             }
@@ -258,7 +258,7 @@ function PlayerQuery(){
                     body : JSON.stringify(requestData)
                 };
 
-                console.log(JSON.stringify(requestOptions));
+                //console.log(JSON.stringify(requestOptions));
                 // this will likely change as it's going to handle the response as well.
                 // but for now, I've verified the body of the post request in postman
                 // fetch('http://127.0.0.1:8000/dbQuery/', requestOptions)
@@ -304,7 +304,7 @@ function PlayerQuery(){
             helperText = {idErr === true ? "must provide name or id" : "playerID takes precedence"}
             error={idErr}  
             />
-            <br />
+            <br /><br /><br />
             <Grid container spacing={4}>
                 <Grid item xs={3} />
                 <Grid item xs={3} />
@@ -317,12 +317,23 @@ function PlayerQuery(){
                 </div>
                 </Grid>
             </Grid>
-        <Table columns={columns} 
-               dataSource={data} 
-               pagination={{ defaultPageSize: 20, showSizeChanger: true, pageSizeOptions: ['25', '50', '100']}}        
-               rowClassName={(record, index) => index % 2 === 0 ? 'table-row-light' :  'table-row-dark'}
-               size='small'
-        />
+        <div>
+          {
+            isLoading === false &&
+            <Table columns={columns} 
+                  dataSource={data} 
+                  pagination={{ defaultPageSize: 20, showSizeChanger: true, pageSizeOptions: ['25', '50', '100']}}        
+                  rowClassName={(record, index) => index % 2 === 0 ? 'table-row-light' :  'table-row-dark'}
+                  size='small'
+            />
+          }
+        </div>
+        <div>
+          {
+            isLoading ===true &&
+            <CircularProgress />
+          }
+        </div>
         </React.Fragment>
     ); 
 } 
