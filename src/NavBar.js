@@ -93,16 +93,16 @@ export default function NbaBar(props){
                     open={Boolean(props.ScraperAnchor)} 
                     onClose={props.handleClose}        
                 >
-                    <Link to = "/InProgress" style={{ textDecoration: 'none' }}>
+                    <Link to = "/ScrapeAll" style={{ textDecoration: 'none' }}>
                         <MenuItem id="scrapeAll" onClick={props.handleClick}>Scrape All</MenuItem>
                     </Link>
-                    <Link to = "/InProgress" style={{ textDecoration: 'none' }}>
+                    <Link to = "/ScrapeRoto" style={{ textDecoration: 'none' }}>
                         <MenuItem id="scrapeRoto" onClick={props.handleClick}>Rotoworld</MenuItem>
                     </Link>
-                    <Link to = "/InProgress" style={{ textDecoration: 'none' }}>
+                    <Link to = "/ScrapeBox" style={{ textDecoration: 'none' }}>
                         <MenuItem id="scrapeBox" onClick={props.handleClick}>Boxscores</MenuItem>
                     </Link>
-                    <Link to = "/InProgress" style={{ textDecoration: 'none' }}>
+                    <Link to = "/ScrapePlay" style={{ textDecoration: 'none' }}>
                         <MenuItem id="scrapePlay" onClick={props.handleClick}>Play-by-Play</MenuItem>
                     </Link>
 

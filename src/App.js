@@ -8,6 +8,7 @@ import DBquery from './DBquery.js';
 import Welcome from './Welcome.js';
 import AddFeature from './AddFeature.js';
 import InProgress from './InProgress';
+import ScraperPage from './ScraperPage';
 import { Route, Switch } from 'react-router-dom';
 
 
@@ -95,6 +96,10 @@ function App() {
           <Route path='/Welcome' component={Welcome} exact />
           <Route path='/DBQuery' component={DBquery} exact />
           <Route path='/AddFeature' component={AddFeature} exact />
+          <Route path='/ScrapeAll' component={ScraperPage} exact />
+          <Route path='/ScrapeRoto' component={ScraperPage} exact />
+          <Route path='/ScrapeBox' component={ScraperPage} exact />
+          <Route path='/ScrapePlays' component={ScraperPage} exact />
           <Route path='/InProgress' component={InProgress} exact />
         <div>
           {
