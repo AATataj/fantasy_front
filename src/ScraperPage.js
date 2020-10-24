@@ -4,7 +4,7 @@ import {LinearProgress, Box, Typography} from '@material-ui/core';
 import './App.css';
 import './NavBar.js';
 
-function ScraperPage(){
+function ScraperPage(props){
     const [progress, setProgress] = React.useState(0);
 
     const progressRef = React.useRef(() => {});
@@ -29,6 +29,8 @@ function ScraperPage(){
     return (
 
         <React.Fragment>
+            <br /><br /><br />
+            { (props.mode === 'scrapeRoto' || props.mode === 'scrapeAll') &&
             <div id='roto'>
             Rotoworld Scraper Progress
                 <Box width = "100%" alignItems="center">
@@ -42,8 +44,10 @@ function ScraperPage(){
                         </Typography>
                     </Box>
                 </Box>
-                <br /><br /><br />
+                <br /><br /><br />           
             </div>
+            }
+            { (props.mode === 'scrapeBox' || props.mode === 'scrapeAll') &&
             <div id='boxscores'>
             Boxscores Scraper Progress
                 <Box width = "100%" alignItems="center">
@@ -59,6 +63,8 @@ function ScraperPage(){
                 </Box>
                 <br /><br /><br />
             </div>
+            }
+            { (props.mode === 'scrapePlay' || props.mode === 'scrapeAll') &&
             <div id='plays'>
             Play-by-Play Scraper Progress
                 <Box width = "100%" alignItems="center">
@@ -73,6 +79,7 @@ function ScraperPage(){
                     </Box>
                 </Box>
             </div>
+            }
         </React.Fragment>
 
     );
