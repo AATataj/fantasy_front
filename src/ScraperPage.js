@@ -29,7 +29,6 @@ function ScraperPage(){
     return (
 
         <React.Fragment>
-            <Navbar />
             <div id='roto'>
             Rotoworld Scraper Progress
                 <Box width = "100%" alignItems="center">

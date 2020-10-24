@@ -22,6 +22,7 @@ function App() {
   */
   const [ScraperAnchor, setScraperAnchor] = React.useState(null);
   const [ModelsAnchor, setModelsAnchor] = React.useState(null);
+  const [scrapeMode, setScrapeMode] = React.useState(null);
   const [pageLoc, setPageLoc] = React.useState('welcome'); 
   // use effect runs after a state/hook variable is changed and 
   // doesn't wait for a render() call.  
@@ -34,35 +35,38 @@ function App() {
   },[pageLoc]);
   const handleClick= (event) => {
     const eventID = event.currentTarget.id;
+    console.log("beginning of handleClick : " + eventID);
     if (eventID === "menuScraper"){
         setScraperAnchor(event.currentTarget);
     }
     else if (eventID === "dbQuery"){
         setPageLoc(eventID);
-        console.log("pull up db query component");
     }
     else if (eventID === "addFeature"){
         setPageLoc(eventID);
-        console.log("pull up add feature component");
     }
     else if (eventID === "scrapeAll"){
         setPageLoc(eventID);
-        console.log("pull up scraping page with process of all scrapers");
+        setScrapeMode(eventID);
+        setPageLoc(eventID);
         handleClose();
     }
     else if (eventID === "scrapeRoto"){
         setPageLoc(eventID);
-        console.log("pull up scraping page with process of rotoworld ");
+        setScrapeMode(eventID);
+        setPageLoc(eventID);
         handleClose();
     }
     else if (eventID === "scrapeBox"){
         setPageLoc(eventID);
-        console.log("pull up scraping page with process of boxscores");
+        setScrapeMode(eventID);
+        setPageLoc(eventID);
         handleClose();
     }
     else if (eventID === "scrapePlay"){
         setPageLoc(eventID);
-        console.log("pull up scraping page with process of play-by-plays");
+        setScrapeMode(eventID);
+        setPageLoc(eventID);
         handleClose();
     }
     else if (eventID === "menuModels"){
@@ -70,19 +74,17 @@ function App() {
     }
     else if (eventID === "linReg"){
         setPageLoc(eventID);
-        console.log("bring up linear regression testing page");
         handleClose();
     }
     else if (eventID === "sentiment"){
         setPageLoc(eventID);
-        console.log("bring up sentiment analysis testing page");
         handleClose();
     }
     else if (eventID === "reinforcement"){
         setPageLoc(eventID);
-        console.log("bring up reinforcement learning testing page");
         handleClose();
     } 
+    console.log("end of handleClick : " + scrapeMode);
   };    
   const handleClose = () => {
       setScraperAnchor(null);
@@ -91,7 +93,7 @@ function App() {
   return (
     <div className="App">
         <NavBar handleClick={handleClick} handleClose={handleClose} 
-          ModelsAnchor={ModelsAnchor} ScraperAnchor={ScraperAnchor} />
+          ModelsAnchor={ModelsAnchor} ScraperAnchor={ScraperAnchor}/>
         <Switch>
           <Route path='/Welcome' component={Welcome} exact />
           <Route path='/DBQuery' component={DBquery} exact />
@@ -99,7 +101,7 @@ function App() {
           <Route path='/ScrapeAll' component={ScraperPage} exact />
           <Route path='/ScrapeRoto' component={ScraperPage} exact />
           <Route path='/ScrapeBox' component={ScraperPage} exact />
-          <Route path='/ScrapePlays' component={ScraperPage} exact />
+          <Route path='/ScrapePlay' component={ScraperPage} exact />
           <Route path='/InProgress' component={InProgress} exact />
         <div>
           {
