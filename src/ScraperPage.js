@@ -30,7 +30,7 @@ function ScraperPage(){
 
         <React.Fragment>
             <Navbar />
-            Hellows this is the scraper progress page
+            Rotoworld Scraper Progress
             <Box width = "100%" alignItems="center">
                 <Box>
                     <LinearProgress variant ="determinate" value={progress}>
@@ -38,7 +38,7 @@ function ScraperPage(){
                 </Box>
                 <Box>
                     <Typography variant="body2">
-                        {Number.parseFloat(progress).toPrecision(3).toString() + "%"}
+                        {progress.toFixed(1).toString() + "%"}
                     </Typography>
                 </Box>
             </Box>
