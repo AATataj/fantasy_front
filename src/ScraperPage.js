@@ -30,18 +30,50 @@ function ScraperPage(){
 
         <React.Fragment>
             <Navbar />
+            <div id='roto'>
             Rotoworld Scraper Progress
-            <Box width = "100%" alignItems="center">
-                <Box>
-                    <LinearProgress variant ="determinate" value={progress}>
-                    </LinearProgress>
+                <Box width = "100%" alignItems="center">
+                    <Box>
+                        <LinearProgress variant ="determinate" value={progress}>
+                        </LinearProgress>
+                    </Box>
+                    <Box>
+                        <Typography variant="body2">
+                            {progress.toFixed(1).toString() + "%"}
+                        </Typography>
+                    </Box>
                 </Box>
-                <Box>
-                    <Typography variant="body2">
-                        {progress.toFixed(1).toString() + "%"}
-                    </Typography>
+                <br /><br /><br />
+            </div>
+            <div id='boxscores'>
+            Boxscores Scraper Progress
+                <Box width = "100%" alignItems="center">
+                    <Box>
+                        <LinearProgress variant ="determinate" value={progress}>
+                        </LinearProgress>
+                    </Box>
+                    <Box>
+                        <Typography variant="body2">
+                            {progress.toFixed(1).toString() + "%"}
+                        </Typography>
+                    </Box>
                 </Box>
-            </Box>
+                <br /><br /><br />
+            </div>
+            <div id='plays'>
+            Play-by-Play Scraper Progress
+                <Box width = "100%" alignItems="center">
+                    <Box>
+                        <LinearProgress variant ="determinate" value={progress}>
+                        </LinearProgress>
+                    </Box>
+                    <Box>
+                        <Typography variant="body2">
+                            {progress.toFixed(1).toString() + "%"}
+                        </Typography>
+                    </Box>
+                </Box>
+            </div>
         </React.Fragment>
 
     );
