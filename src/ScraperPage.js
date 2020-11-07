@@ -7,24 +7,23 @@ import './NavBar.js';
 
 function ScraperPage(props){
     const [progress, setProgress] = React.useState(0);
-    if (props.mode){
-        const mode = props.mode.replace('s', 'S');
-        var string = `ws://localhost:8000/${mode}`;
-        console.log(string);
-    }
-    const progressRef = React.useRef(() => {});
-    // if (props.mode === "scrapeAll"){
-    //     try {
-    //         const websock = new WebSocket(`ws://localhost:8000/${mode}`);
-    //         websock.onopen = () => {
-    //         console.log('connected');
-    //         }
-    //     }
-    //     catch(err) {
-    //         console.log("error opening websocket...");
-    //     }
+    var mode = null;
         
-    // }
+    const progressRef = React.useRef(() => {});
+    if (props.mode && (!mode)){
+        try {
+            mode = props.mode.replace('s', 'S');
+            //console.log('ws://127.0.0.1:8000/'+mode+'/');
+            const websock = new WebSocket(`ws://127.0.0.1:8000/${mode}/`);
+            websock.onopen = () => {
+               console.log('connected');
+            }
+        }
+        catch(err) {
+            console.log("error opening websocket...");
+        }
+        
+    }
 
     
 
