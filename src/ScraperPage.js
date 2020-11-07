@@ -7,35 +7,24 @@ import './NavBar.js';
 
 function ScraperPage(props){
     const [progress, setProgress] = React.useState(0);
-
-    const progressRef = React.useRef(() => {});
-    if (props.mode === "scrapeBox"){
-        const websock = new WebSocket('ws://localhost:8000/ScrapeBox');
-        websock.onopen = () => {
-            console.log('connected');
-        }
-    }else if (props.mode === "scrapeRoto"){
-        const websock = new WebSocket('ws://localhost:8000/ScrapeRoto');
-        websock.onopen = () => {
-            console.log('connected');
-        }
-    }else if (props.mode === "scrapePlays"){
-        const websock = new WebSocket('ws://localhost:8000/ScrapePlays');
-        websock.onopen = () => {
-            console.log('connected');
-        }
-    }else if (props.mode === "scrapeAll"){
-        try {
-            const websock = new WebSocket('ws://localhost:8000/ScrapeAll');
-            websock.onopen = () => {
-            console.log('connected');
-            }
-        }
-        catch(err) {
-            console.log("error opening websocket...");
-        }
-        
+    if (props.mode){
+        const mode = props.mode.replace('s', 'S');
+        var string = `ws://localhost:8000/${mode}`;
+        console.log(string);
     }
+    const progressRef = React.useRef(() => {});
+    // if (props.mode === "scrapeAll"){
+    //     try {
+    //         const websock = new WebSocket(`ws://localhost:8000/${mode}`);
+    //         websock.onopen = () => {
+    //         console.log('connected');
+    //         }
+    //     }
+    //     catch(err) {
+    //         console.log("error opening websocket...");
+    //     }
+        
+    // }
 
     
 
