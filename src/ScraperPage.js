@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { Navbar } from 'reactstrap';
 import {LinearProgress, Box, Typography} from '@material-ui/core';
 import './App.css';
 import './NavBar.js';
@@ -7,27 +6,25 @@ import './NavBar.js';
 
 function ScraperPage(props){
     const [progress, setProgress] = React.useState(0);
-    const [mode, setMode] = React.useState(props.mode);
+    var websock;
     useEffect(() => {
         console.log('this is only called when mode changes');
-    }, [props.mode]);
-    const progressRef = React.useRef(() => {});
-    // if (props.mode && (!mode)){
-    //     try {
-    //         mode = props.mode.replace('s', 'S');
-    //         //console.log('ws://127.0.0.1:8000/'+mode+'/');
-    //         const websock = new WebSocket(`ws://127.0.0.1:8000/${mode}/`);
-    //         websock.onopen = () => {
-    //            console.log('connected');
-    //         }
-    //     }
-    //     catch(err) {
-    //         console.log("error opening websocket...");
-    //     }
-        
-    // }
+        try {
+            var mode = props.mode.replace('s', 'S');
+            websock= new WebSocket(`ws://127.0.0.1:8000/${mode}/`);
+            websock.onopen = () => {
+               console.log('connected');
+            }
+            websock.onmessage = function(event) {
+                console.log("message received");
+                console.log(JSON.parse(event.data).progress);
 
-    
+            }
+        }
+        catch(err) {
+            console.log("error opening websocket..." + err.toString());
+        }
+    }, [props.mode]);
 
     React.useEffect(() => {
         const timer = setInterval(() => {
