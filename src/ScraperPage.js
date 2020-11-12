@@ -27,12 +27,13 @@ function ScraperPage(props){
                 console.log('websocket for boxscores opened...');
                 }
             }
-            if ((mode==='ScrapePlay' || mode==='ScrapeAll') && websockPlay == null){
-                websockPlay= new WebSocket(`ws://127.0.0.1:8000/${mode}/`);
-                websockPlay.onopen = () => {
-                console.log('websocket for plays opened...');
-                }
-            }
+            // uncomment this once the play by play scraper is done
+            // if ((mode==='ScrapePlay' || mode==='ScrapeAll') && websockPlay == null){
+            //     websockPlay= new WebSocket(`ws://127.0.0.1:8000/${mode}/`);
+            //     websockPlay.onopen = () => {
+            //     console.log('websocket for plays opened...');
+            //     }
+            // }
             
             websockRoto.onmessage = function(event) {
                 console.log(JSON.parse(event.data).progress);

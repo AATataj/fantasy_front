@@ -103,7 +103,7 @@ export default function NbaBar(props){
                         <MenuItem id="scrapeBox" onClick={props.handleClick}>Boxscores</MenuItem>
                     </Link>
                     <Link to = "/ScrapePlay" style={{ textDecoration: 'none' }}>
-                        <MenuItem id="scrapePlay" onClick={props.handleClick}>Play-by-Play</MenuItem>
+                        <MenuItem id="scrapePlay" disabled onClick={props.handleClick}>Play-by-Play</MenuItem>
                     </Link>
 
                 </Menu>
