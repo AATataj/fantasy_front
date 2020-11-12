@@ -18,7 +18,7 @@ function ScraperPage(props){
             websock.onmessage = function(event) {
                 console.log("message received");
                 console.log(JSON.parse(event.data).progress);
-
+                setProgress(JSON.parse(event.data).progress);
             }
         }
         catch(err) {
@@ -26,22 +26,22 @@ function ScraperPage(props){
         }
     }, [props.mode]);
 
-    React.useEffect(() => {
-        const timer = setInterval(() => {
-          setProgress((progress) => {
-            if (progress === 100) {
-              return 0;
-            }
-            const diff = Math.random() * 10;
-            return Math.min(progress + diff, 100);
-          });
-        }, 500);
+    // React.useEffect(() => {
+    //     const timer = setInterval(() => {
+    //       setProgress((progress) => {
+    //         if (progress === 100) {
+    //           return 0;
+    //         }
+    //         const diff = Math.random() * 10;
+    //         return Math.min(progress + diff, 100);
+    //       });
+    //     }, 500);
     
-        return () => {
-          clearInterval(timer);
-        };
-      }, 
-      []);
+    //     return () => {
+    //       clearInterval(timer);
+    //     };
+    //   }, 
+    //   []);
     
     return (
 
