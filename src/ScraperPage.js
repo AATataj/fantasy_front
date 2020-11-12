@@ -5,20 +5,46 @@ import './NavBar.js';
 
 
 function ScraperPage(props){
-    const [progress, setProgress] = React.useState(0);
-    var websock;
+    const [progressRoto, setProgressRoto] = React.useState(0);
+    const [progressBox, setProgressBox] = React.useState(0);
+    const [progressPlay, setProgressPlay] = React.useState(0);
+    
+    var websockRoto, websockBox, websockPlay = null;
     useEffect(() => {
         console.log('this is only called when mode changes');
+
         try {
             var mode = props.mode.replace('s', 'S');
-            websock= new WebSocket(`ws://127.0.0.1:8000/${mode}/`);
-            websock.onopen = () => {
-               console.log('connected');
+            if ((mode==='ScrapeRoto' || mode==='ScrapeAll') && websockRoto == null){
+                websockRoto= new WebSocket(`ws://127.0.0.1:8000/${mode}/`);
+                websockRoto.onopen = () => {
+                console.log('websocket for rotoworld opened...');
+                }
             }
-            websock.onmessage = function(event) {
-                console.log("message received");
+            if ((mode==='ScrapeBox' || mode==='ScrapeAll') && websockBox == null){
+                websockBox= new WebSocket(`ws://127.0.0.1:8000/${mode}/`);
+                websockBox.onopen = () => {
+                console.log('websocket for boxscores opened...');
+                }
+            }
+            if ((mode==='ScrapePlay' || mode==='ScrapeAll') && websockPlay == null){
+                websockPlay= new WebSocket(`ws://127.0.0.1:8000/${mode}/`);
+                websockPlay.onopen = () => {
+                console.log('websocket for plays opened...');
+                }
+            }
+            
+            websockRoto.onmessage = function(event) {
                 console.log(JSON.parse(event.data).progress);
-                setProgress(JSON.parse(event.data).progress);
+                setProgressRoto(JSON.parse(event.data).progress);
+            }
+            websockBox.onmessage = function(event) {
+                console.log(JSON.parse(event.data).progress);
+                setProgressBox(JSON.parse(event.data).progress);
+            }
+            websockPlay.onmessage = function(event) {
+                console.log(JSON.parse(event.data).progress);
+                setProgressPlay(JSON.parse(event.data).progress);
             }
         }
         catch(err) {
@@ -52,12 +78,12 @@ function ScraperPage(props){
             Rotoworld Scraper Progress
                 <Box width = "100%" alignItems="center">
                     <Box>
-                        <LinearProgress variant ="determinate" value={progress}>
+                        <LinearProgress variant ="determinate" value={progressRoto}>
                         </LinearProgress>
                     </Box>
                     <Box>
                         <Typography variant="body2">
-                            {progress.toFixed(1).toString() + "%"}
+                            {progressRoto.toFixed(1).toString() + "%"}
                         </Typography>
                     </Box>
                 </Box>
@@ -69,12 +95,12 @@ function ScraperPage(props){
             Boxscores Scraper Progress
                 <Box width = "100%" alignItems="center">
                     <Box>
-                        <LinearProgress variant ="determinate" value={progress}>
+                        <LinearProgress variant ="determinate" value={progressBox}>
                         </LinearProgress>
                     </Box>
                     <Box>
                         <Typography variant="body2">
-                            {progress.toFixed(1).toString() + "%"}
+                            {progressBox.toFixed(1).toString() + "%"}
                         </Typography>
                     </Box>
                 </Box>
@@ -86,12 +112,12 @@ function ScraperPage(props){
             Play-by-Play Scraper Progress
                 <Box width = "100%" alignItems="center">
                     <Box>
-                        <LinearProgress variant ="determinate" value={progress}>
+                        <LinearProgress variant ="determinate" value={progressPlay}>
                         </LinearProgress>
                     </Box>
                     <Box>
                         <Typography variant="body2">
-                            {progress.toFixed(1).toString() + "%"}
+                            {progressPlay.toFixed(1).toString() + "%"}
                         </Typography>
                     </Box>
                 </Box>
