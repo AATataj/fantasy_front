@@ -15,10 +15,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'white', //theme.palette.background.paper,
     color: 'black'
   },
-    '& .MuiTextField-root':{
-      margin : theme.spacing(1),
-      width : '50ch',
-    },
 }));
 
 export default function AddFeature() {
@@ -31,6 +27,9 @@ export default function AddFeature() {
   const [query, setQuery] = useState(null);
   const [testedFlag, setTestedFlag] = useState(false);
   const [featureName, setFeatureName] = useState(null);
+  const [startYear, setStartYear] = useState(null);
+  const [endYear, setEndYear] = useState(null);
+
 
   const handleCloseAgg = () => {
     setAnchorAgg(null);
@@ -62,39 +61,53 @@ export default function AddFeature() {
   const updateFeatureName = (event) => {
     setFeatureName(event.currentTarget.value)
   }
+  const addFeature = (event) => {
+
+  }
+  const updateStartYear = (event) => {
+    setStartYear(event.currentTarget.value);
+  }
+  const updateEndYear = (event) => {
+    setEndYear(event.currentTarget.value);
+  }
   return (
     <React.Fragment>
       <IconButton 
         edge="start" 
         onClick = {handleClick}
         id = "MinionsMenuButton"
-        aria-controls="scrapersMenu"
+        //aria-controls="scrapersMenu"
         aria-haspopup="true"
+        variant="outlined"
         className={classes.root} 
     >
-        Minions : {minions}   
+        Minions : {minions != null ? minions : "None"}   
       </IconButton>
       <IconButton 
         edge="start" 
         onClick = {handleClick}
         id = "AggsMenuButton"
-        aria-controls="scrapersMenu"
+        //aria-controls="scrapersMenu"
         aria-haspopup="true"
+        variant="outlined"
         className={classes.root} 
     >
-        Aggregators : {aggregators}
+        Aggregators : {aggregators != null ? aggregators : "None" }
       </IconButton>
-      <br/><br/><br/>Feature Name<br/><br/>
+      <br/><br/><br/>
       <TextField
+        label = "Feature Name"
         id= "featureNameText"
         value = {featureName}
         onChange = {updateFeatureName}
         variant = 'outlined'
       />
-      <br/><br/><br/>Query<br/><br/>
+      <br/><br/><br/>
       <TextField
-        rowsMax = {10}
         multiline
+        rows={8}
+        rowsMax = {10}
+        label = "Query"
         id= "queryText"
         value = {query}
         onChange = {updateQuery}
@@ -102,14 +115,45 @@ export default function AddFeature() {
         style = {{width:500}}
       />
       <br/><br/>
+      <TextField
+        rows={1}
+        rowsMax = {1}
+        label = "Start Year"
+        id= "startYearField"
+        value = {startYear}
+        onChange = {updateStartYear}
+        variant = 'outlined'
+        style = {{width:100, padding:0}}
+      />
+      <TextField
+        label="End Year"
+        rows={1}
+        rowsMax = {1}
+        id= "endYearField"
+        value = {endYear}
+        onChange = {updateEndYear}
+        variant = 'outlined'
+        style = {{width:100, padding:0}}
+      />
       <IconButton
         edge="end"
         onClick = {testQuery}
         id = "testButton"
         className={classes.root}
+        variant="outlined"
       >
         Test Query
       </IconButton>
+      <IconButton
+        edge="end"
+        onClick = {addFeature}
+        id = "featureAddButton"
+        className={classes.root}
+        variant="outlined"
+      >
+        Add Feature
+      </IconButton>
+
       <Menu 
         id = "minionsMenu"
         keepMounted
