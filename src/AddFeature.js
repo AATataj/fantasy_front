@@ -7,8 +7,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-
-
+import { DataGrid } from '@material-ui/data-grid';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,7 +28,7 @@ export default function AddFeature() {
   const [featureName, setFeatureName] = useState(null);
   const [startYear, setStartYear] = useState(null);
   const [endYear, setEndYear] = useState(null);
-
+  const [featureRows, setFeatureRows] = useState([]);
 
   const handleCloseAgg = () => {
     setAnchorAgg(null);
@@ -61,8 +60,14 @@ export default function AddFeature() {
   const updateFeatureName = (event) => {
     setFeatureName(event.currentTarget.value)
   }
-  const addFeature = (event) => {
+  const addFeature = () => {
+    console.log("pre");
+    console.log(featureRows);
+    console.log("post");
+    setFeatureRows(featureRows.concat({id:featureRows.length+1, featureName:featureName}));
+    console.log(featureRows);
 
+    console.log(featureRows.length);
   }
   const updateStartYear = (event) => {
     setStartYear(event.currentTarget.value);
@@ -153,6 +158,17 @@ export default function AddFeature() {
       >
         Add Feature
       </IconButton>
+      <br/><br/><br/>
+      <div style={{height:250, width:'35%'}}>
+        <DataGrid
+          columns={[{field:'featureName', headerName:'Feature Name'}]}
+          rows={featureRows === [] ? {id:1} : featureRows}
+          //rows={{id:1}}
+          variant='outlined'
+
+        />
+      </div>
+
 
       <Menu 
         id = "minionsMenu"
