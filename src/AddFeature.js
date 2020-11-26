@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import './NavBar.js';
-import TextField from '@material-ui/core/TextField';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -15,6 +15,10 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'white', //theme.palette.background.paper,
     color: 'black'
   },
+    '& .MuiTextField-root':{
+      margin : theme.spacing(1),
+      width : '50ch',
+    },
 }));
 
 export default function AddFeature() {
@@ -24,7 +28,9 @@ export default function AddFeature() {
   const [ anchorMinion, setAnchorMinion] = React.useState(null);
   const [ anchorAgg, setAnchorAgg] = React.useState(null)
   const classes = useStyles();
-  
+  const [query, setQuery] = useState(null);
+  const [testedFlag, setTestedFlag] = useState(false);
+  const [featureName, setFeatureName] = useState(null);
 
   const handleCloseAgg = () => {
     setAnchorAgg(null);
@@ -35,13 +41,26 @@ export default function AddFeature() {
   const handleClick = (event) => {
     const eventID = event.currentTarget.id;
     if (eventID === "MinionsMenuButton"){
-      setAnchorMinion(event.currentTarget);
       console.log(anchorMinion);
+      setAnchorMinion(event.currentTarget);
     } 
     if (eventID === "AggsMenuButton"){
       setAnchorAgg(event.currentTarget);
       console.log(anchorAgg);
     }
+  }                                                                 
+  const testQuery = (event) => {
+    //probs move this flag assignment until after 
+    // the function returns with appropriate results
+    setTestedFlag(true);
+    console.log(query);
+    console.log(testedFlag);
+  }
+  const updateQuery = (event) => {
+    setQuery(event.currentTarget.value);
+  }
+  const updateFeatureName = (event) => {
+    setFeatureName(event.currentTarget.value)
   }
   return (
     <React.Fragment>
@@ -64,6 +83,32 @@ export default function AddFeature() {
         className={classes.root} 
     >
         Aggregators : {aggregators}
+      </IconButton>
+      <br/><br/><br/>Feature Name<br/><br/>
+      <TextField
+        id= "featureNameText"
+        value = {featureName}
+        onChange = {updateFeatureName}
+        variant = 'outlined'
+      />
+      <br/><br/><br/>Query<br/><br/>
+      <TextField
+        rowsMax = {10}
+        multiline
+        id= "queryText"
+        value = {query}
+        onChange = {updateQuery}
+        variant = 'outlined'
+        style = {{width:500}}
+      />
+      <br/><br/>
+      <IconButton
+        edge="end"
+        onClick = {testQuery}
+        id = "testButton"
+        className={classes.root}
+      >
+        Test Query
       </IconButton>
       <Menu 
         id = "minionsMenu"
