@@ -8,6 +8,9 @@ import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { DataGrid } from '@material-ui/data-grid';
+import Grid from '@material-ui/core/Grid';
+import Paper from "@material-ui/core/Paper";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -75,10 +78,12 @@ export default function AddFeature() {
   const updateEndYear = (event) => {
     setEndYear(event.currentTarget.value);
   }
+  const removeFeature = (event) => {
+
+  }
   return (
     <React.Fragment>
       <IconButton 
-        edge="start" 
         onClick = {handleClick}
         id = "MinionsMenuButton"
         //aria-controls="scrapersMenu"
@@ -89,7 +94,6 @@ export default function AddFeature() {
         Minions : {minions != null ? minions : "None"}   
       </IconButton>
       <IconButton 
-        edge="start" 
         onClick = {handleClick}
         id = "AggsMenuButton"
         //aria-controls="scrapersMenu"
@@ -141,7 +145,6 @@ export default function AddFeature() {
         style = {{width:100, padding:0}}
       />
       <IconButton
-        edge="end"
         onClick = {testQuery}
         id = "testButton"
         className={classes.root}
@@ -150,7 +153,6 @@ export default function AddFeature() {
         Test Query
       </IconButton>
       <IconButton
-        edge="end"
         onClick = {addFeature}
         id = "featureAddButton"
         className={classes.root}
@@ -159,17 +161,29 @@ export default function AddFeature() {
         Add Feature
       </IconButton>
       <br/><br/><br/>
-      <div style={{height:250, width:'35%'}}>
-        <DataGrid
-          columns={[{field:'featureName', headerName:'Feature Name'}]}
-          rows={featureRows === [] ? {id:1} : featureRows}
-          //rows={{id:1}}
-          variant='outlined'
-
-        />
-      </div>
-
-
+      <Grid container>
+        <Grid item xs={6}>
+          <DataGrid
+            columns={[{field:'featureName', headerName:'Name'}]}
+            rows={featureRows === [] ? {id:1} : featureRows}
+            variant='outlined'
+            hideFooter
+            disableMultipleSelection
+            autoHeight
+          />
+        </Grid>
+        <Grid item xs={6}>
+        <IconButton
+          onClick = {removeFeature}
+          id = "featureRemoveButton"
+          className={classes.root}
+          variant="outlined"
+        >
+          Remove Feature
+        </IconButton>
+        </Grid>
+        </Grid>
+        <br /><br />
       <Menu 
         id = "minionsMenu"
         keepMounted
@@ -203,14 +217,6 @@ export default function AddFeature() {
         <MenuItem id="Aggs8" onClick={() => setAggs(8)}>8</MenuItem>
       </Menu>
 
-      <div className="App">
-        <header className="App-header">
-          <p>
-            Welcome to the NBA Fantasy AI Dashboard <br />
-            This is the add feature page
-          </p>
-        </header>
-      </div>
     </React.Fragment>
   );
 }
