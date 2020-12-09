@@ -32,6 +32,7 @@ export default function AddFeature() {
   const [startYear, setStartYear] = useState(null);
   const [endYear, setEndYear] = useState(null);
   const [featureRows, setFeatureRows] = useState([]);
+  const [selectedRow, setSelectedRow] = useState(null);
 
   const handleCloseAgg = () => {
     setAnchorAgg(null);
@@ -64,13 +65,13 @@ export default function AddFeature() {
     setFeatureName(event.currentTarget.value)
   }
   const addFeature = () => {
-    console.log("pre");
-    console.log(featureRows);
-    console.log("post");
+    for(var i=0; i<featureRows.length; i++){
+      if (featureRows[i].featureName==featureName){
+        return;
+      }
+    }
     setFeatureRows(featureRows.concat({id:featureRows.length+1, featureName:featureName}));
-    console.log(featureRows);
-
-    console.log(featureRows.length);
+    
   }
   const updateStartYear = (event) => {
     setStartYear(event.currentTarget.value);
@@ -78,8 +79,24 @@ export default function AddFeature() {
   const updateEndYear = (event) => {
     setEndYear(event.currentTarget.value);
   }
+  const setSelection = (event) =>{
+    setSelectedRow(parseInt(event.rowIds[0])-1);
+  }
   const removeFeature = (event) => {
-
+    if (selectedRow != null){
+      console.log(featureRows);
+      console.log(selectedRow);
+      var newFeaturesList = [];
+      for (var i=0; i<featureRows.length; i++){
+        if (i!=selectedRow){
+          newFeaturesList.concat(featureRows[i]);
+        }
+      }
+      setFeatureRows(newFeaturesList);
+      //featureRows.splice(selectedRow);
+      console.log(featureRows);
+    }
+    setSelectedRow(null);
   }
   return (
     <React.Fragment>
@@ -169,6 +186,7 @@ export default function AddFeature() {
             variant='outlined'
             hideFooter
             disableMultipleSelection
+            onSelectionChange={setSelection}
             autoHeight
           />
         </Grid>
