@@ -42,10 +42,12 @@ export default function AddFeature() {
   
   useEffect(() => {
   }, [featureRows]);
-  const handleCloseAgg = () => {
+  const handleCloseAgg = (event) => {
+    setAggs(event.currentTarget.id.charAt(event.currentTarget.id.length-1));
     setAnchorAgg(null);
   };
-  const handleCloseMinion = () => {
+  const handleCloseMinion = (event) => {
+    setMinions(event.currentTarget.id.charAt(event.currentTarget.id.length-1));
     setAnchorMinion(null);
   } 
   const handleClick = (event) => {
@@ -235,32 +237,32 @@ export default function AddFeature() {
         keepMounted
         anchorEl={anchorMinion}
         open={Boolean(anchorMinion)}
-        onClose={handleCloseMinion}
+        /*onClose={handleCloseMinion}*/
       >
-        <MenuItem id="Minions1" onClick={() => setMinions(1)}>1</MenuItem>
-        <MenuItem id="Minions2" onClick={() => setMinions(2)}>2</MenuItem>
-        <MenuItem id="Minions3" onClick={() => setMinions(3)}>3</MenuItem>
-        <MenuItem id="Minions4" onClick={() => setMinions(4)}>4</MenuItem>
-        <MenuItem id="Minions5" onClick={() => setMinions(5)}>5</MenuItem>
-        <MenuItem id="Minions6" onClick={() => setMinions(6)}>6</MenuItem>
-        <MenuItem id="Minions7" onClick={() => setMinions(7)}>7</MenuItem>
-        <MenuItem id="Minions8" onClick={() => setMinions(8)}>8</MenuItem>
+        <MenuItem id="Minions1" onClick={handleCloseMinion}>1</MenuItem>
+        <MenuItem id="Minions2" onClick={handleCloseMinion}>2</MenuItem>
+        <MenuItem id="Minions3" onClick={handleCloseMinion}>3</MenuItem>
+        <MenuItem id="Minions4" onClick={handleCloseMinion}>4</MenuItem>
+        <MenuItem id="Minions5" onClick={handleCloseMinion}>5</MenuItem>
+        <MenuItem id="Minions6" onClick={handleCloseMinion}>6</MenuItem>
+        <MenuItem id="Minions7" onClick={handleCloseMinion}>7</MenuItem>
+        <MenuItem id="Minions8" onClick={handleCloseMinion}>8</MenuItem>
       </Menu>
       <Menu 
         id = "aggregatorMenu"
         keepMounted
         anchorEl={anchorAgg}
         open={Boolean(anchorAgg)}
-        onClose={handleCloseAgg}
+        // onClose={handleCloseAgg}
       >
-        <MenuItem id="Aggs1" onClick={() => setAggs(1)}>1</MenuItem>
-        <MenuItem id="Aggs2" onClick={() => setAggs(2)}>2</MenuItem>
-        <MenuItem id="Aggs3" onClick={() => setAggs(3)}>3</MenuItem>
-        <MenuItem id="Aggs4" onClick={() => setAggs(4)}>4</MenuItem>
-        <MenuItem id="Aggs5" onClick={() => setAggs(5)}>5</MenuItem>
-        <MenuItem id="Aggs6" onClick={() => setAggs(6)}>6</MenuItem>
-        <MenuItem id="Aggs7" onClick={() => setAggs(7)}>7</MenuItem>
-        <MenuItem id="Aggs8" onClick={() => setAggs(8)}>8</MenuItem>
+        <MenuItem id="Aggs1" onClick={handleCloseAgg}>1</MenuItem>
+        <MenuItem id="Aggs2" onClick={handleCloseAgg}>2</MenuItem>
+        <MenuItem id="Aggs3" onClick={handleCloseAgg}>3</MenuItem>
+        <MenuItem id="Aggs4" onClick={handleCloseAgg}>4</MenuItem>
+        <MenuItem id="Aggs5" onClick={handleCloseAgg}>5</MenuItem>
+        <MenuItem id="Aggs6" onClick={handleCloseAgg}>6</MenuItem>
+        <MenuItem id="Aggs7" onClick={handleCloseAgg}>7</MenuItem>
+        <MenuItem id="Aggs8" onClick={handleCloseAgg}>8</MenuItem>
       </Menu>
 
     </React.Fragment>
