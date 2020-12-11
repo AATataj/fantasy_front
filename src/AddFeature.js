@@ -35,9 +35,12 @@ export default function AddFeature() {
   const [endYear, setEndYear] = useState(null);
   const [featureRows, setFeatureRows] = useState([]);
   const [selectedRow, setSelectedRow] = useState(null);
-
+  var newFeatures = {
+    "slaveReplicas" : null,
+    "aggregatorReplicas" : null,
+    "features" : []
+  }
   useEffect(() => {
-    console.log("we get called");
   }, [featureRows]);
   const handleCloseAgg = () => {
     setAnchorAgg(null);
@@ -48,12 +51,10 @@ export default function AddFeature() {
   const handleClick = (event) => {
     const eventID = event.currentTarget.id;
     if (eventID === "MinionsMenuButton"){
-      console.log(anchorMinion);
       setAnchorMinion(event.currentTarget);
     } 
     if (eventID === "AggsMenuButton"){
       setAnchorAgg(event.currentTarget);
-      console.log(anchorAgg);
     }
   }                                                                 
   const testQuery = (event) => {
@@ -71,11 +72,19 @@ export default function AddFeature() {
   }
   const addFeature = () => {
     for(var i=0; i<featureRows.length; i++){
-      if (featureRows[i].featureName==featureName){
+      if (featureRows[i].featureName===featureName){
         return;
       }
     }
     setFeatureRows(featureRows.concat({id:featureRows.length+1, featureName:featureName}));
+    
+    newFeatures.slaveReplicas = parseInt(minions);
+    newFeatures.aggregatorReplicas = parseInt(aggregators);
+    var newFeature = {featureName : featureName, query : query, startYear : parseInt(startYear), endYear : parseInt(endYear)};
+    newFeatures.features.push(newFeature);
+    
+    console.log(newFeatures.features);
+    console.log(newFeatures);
     
   }
   const updateStartYear = (event) => {
@@ -91,16 +100,24 @@ export default function AddFeature() {
     if (selectedRow != null){
       //featureRows.splice(selectedRow,1);
       var newarr = [];
-      console.log(selectedRow);
       for (var i=0; i<featureRows.length; i++){
-        if (i!=selectedRow){
+        if (i!==selectedRow){
           newarr.push(featureRows[i]);
         }
       }
       setFeatureRows(newarr);
-      console.log(newarr);
     }
     setSelectedRow(null);
+  }
+  const runFeatures = () => {
+    if(testedFlag){
+      //set up the pipe to the backend
+      //run the pipeline here.
+    }
+    else {
+      //return some error about untested features here
+      return;
+    }
   }
   return (
     <React.Fragment>
@@ -204,6 +221,13 @@ export default function AddFeature() {
         </Grid>
         </Grid>
         <br /><br />
+        <IconButton
+          onClick = {runFeatures}
+          id = "featureRunButton"
+          className={classes.root}
+          variant="outlined"
+          
+        ></IconButton>  
       <Menu 
         id = "minionsMenu"
         keepMounted
