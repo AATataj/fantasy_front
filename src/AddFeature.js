@@ -12,12 +12,14 @@ import Grid from '@material-ui/core/Grid';
 import Paper from "@material-ui/core/Paper";
 
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: 'white', //theme.palette.background.paper,
     color: 'black'
   },
 }));
+
 
 export default function AddFeature() {
   
@@ -28,12 +30,15 @@ export default function AddFeature() {
   const classes = useStyles();
   const [query, setQuery] = useState(null);
   const [testedFlag, setTestedFlag] = useState(false);
-  const [featureName, setFeatureName] = useState(null);
+  const [featureName, setFeatureName] = useState('');
   const [startYear, setStartYear] = useState(null);
   const [endYear, setEndYear] = useState(null);
   const [featureRows, setFeatureRows] = useState([]);
   const [selectedRow, setSelectedRow] = useState(null);
 
+  useEffect(() => {
+    console.log("we get called");
+  }, [featureRows]);
   const handleCloseAgg = () => {
     setAnchorAgg(null);
   };
@@ -84,17 +89,16 @@ export default function AddFeature() {
   }
   const removeFeature = (event) => {
     if (selectedRow != null){
-      console.log(featureRows);
+      //featureRows.splice(selectedRow,1);
+      var newarr = [];
       console.log(selectedRow);
-      var newFeaturesList = [];
       for (var i=0; i<featureRows.length; i++){
         if (i!=selectedRow){
-          newFeaturesList.concat(featureRows[i]);
+          newarr.push(featureRows[i]);
         }
       }
-      setFeatureRows(newFeaturesList);
-      //featureRows.splice(selectedRow);
-      console.log(featureRows);
+      setFeatureRows(newarr);
+      console.log(newarr);
     }
     setSelectedRow(null);
   }
@@ -103,7 +107,6 @@ export default function AddFeature() {
       <IconButton 
         onClick = {handleClick}
         id = "MinionsMenuButton"
-        //aria-controls="scrapersMenu"
         aria-haspopup="true"
         variant="outlined"
         className={classes.root} 
@@ -113,7 +116,6 @@ export default function AddFeature() {
       <IconButton 
         onClick = {handleClick}
         id = "AggsMenuButton"
-        //aria-controls="scrapersMenu"
         aria-haspopup="true"
         variant="outlined"
         className={classes.root} 
