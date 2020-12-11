@@ -20,7 +20,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
+var newFeatures = {
+  "slaveReplicas" : null,
+  "aggregatorReplicas" : null,
+  "features" : []
+}
 export default function AddFeature() {
   
   const [ minions, setMinions ] = useState(null);
@@ -31,15 +35,11 @@ export default function AddFeature() {
   const [query, setQuery] = useState(null);
   const [testedFlag, setTestedFlag] = useState(false);
   const [featureName, setFeatureName] = useState('');
-  const [startYear, setStartYear] = useState(null);
-  const [endYear, setEndYear] = useState(null);
+  const [startYear, setStartYear] = useState('');
+  const [endYear, setEndYear] = useState('');
   const [featureRows, setFeatureRows] = useState([]);
   const [selectedRow, setSelectedRow] = useState(null);
-  var newFeatures = {
-    "slaveReplicas" : null,
-    "aggregatorReplicas" : null,
-    "features" : []
-  }
+  
   useEffect(() => {
   }, [featureRows]);
   const handleCloseAgg = () => {
@@ -82,9 +82,7 @@ export default function AddFeature() {
     newFeatures.aggregatorReplicas = parseInt(aggregators);
     var newFeature = {featureName : featureName, query : query, startYear : parseInt(startYear), endYear : parseInt(endYear)};
     newFeatures.features.push(newFeature);
-    
-    console.log(newFeatures.features);
-    console.log(newFeatures);
+    console.log(newFeatures.features.length);
     
   }
   const updateStartYear = (event) => {
@@ -100,13 +98,17 @@ export default function AddFeature() {
     if (selectedRow != null){
       //featureRows.splice(selectedRow,1);
       var newarr = [];
+      var newfeats = [];
       for (var i=0; i<featureRows.length; i++){
         if (i!==selectedRow){
           newarr.push(featureRows[i]);
+          newfeats.push(newFeatures.features[i]);
         }
       }
       setFeatureRows(newarr);
+      newFeatures.features=newfeats;
     }
+    console.log(newFeatures);
     setSelectedRow(null);
   }
   const runFeatures = () => {
